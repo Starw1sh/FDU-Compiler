@@ -2,11 +2,137 @@
 #undef DEBUG
 
 #include "executor.hh"
+#include <iostream>
+
+using namespace std;
+using namespace fdmj;
+
+namespace {
+
+class ExecutorVisitor : public ASTVisitor {
+public:
+  map<string, int> env;
+  int value = 0;
+  int returnValue = 0;
+
+  void visit(Program *node) override {
+    if (node == nullptr || node->main == nullptr) {
+      returnValue = 0;
+      return;
+    }
+    node->main->accept(*this);
+  }
+
+  void visit(MainMethod *node) override {
+    if (node == nullptr || node->sl == nullptr) {
+      returnValue = 0;
+      return;
+    }
+    for (Stm *s : *node->sl) {
+      if (s == nullptr)
+        continue;
+      s->accept(*this);
+    }
+  }
+
+  void visit(Assign *node) override {
+    if (node == nullptr || node->left == nullptr || node->exp == nullptr)
+      return;
+
+    node->exp->accept(*this);
+    const int rhs = value;
+
+    if (node->left->getASTKind() != ASTKind::IdExp)
+      return;
+    IdExp *lhs = static_cast<IdExp *>(node->left);
+    env[lhs->id] = rhs;
+  }
+
+  void visit(Return *node) override {
+    if (node == nullptr || node->exp == nullptr) {
+      returnValue = 0;
+      return;
+    }
+    node->exp->accept(*this);
+    returnValue = value;
+  }
+
+  void visit(BinaryOp *node) override {
+    if (node == nullptr || node->left == nullptr || node->right == nullptr ||
+        node->op == nullptr) {
+      value = 0;
+      return;
+    }
+
+    node->left->accept(*this);
+    const int lv = value;
+    node->right->accept(*this);
+    const int rv = value;
+
+    const string &op = node->op->op;
+    if (op == "+") {
+      value = lv + rv;
+    } else if (op == "-") {
+      value = lv - rv;
+    } else if (op == "*") {
+      value = lv * rv;
+    } else if (op == "/") {
+      value = (rv == 0) ? 0 : (lv / rv);
+    } else {
+      value = 0;
+    }
+  }
+
+  void visit(UnaryOp *node) override {
+    if (node == nullptr || node->exp == nullptr || node->op == nullptr) {
+      value = 0;
+      return;
+    }
+    node->exp->accept(*this);
+    if (node->op->op == "-")
+      value = -value;
+  }
+
+  void visit(IdExp *node) override {
+    if (node == nullptr) {
+      value = 0;
+      return;
+    }
+    auto it = env.find(node->id);
+    if (it == env.end()) {
+      size_t line = 0;
+      size_t col = 0;
+      if (node->getPos() != nullptr) {
+        line = node->getPos()->sline;
+        col = node->getPos()->scolumn;
+      }
+      cerr << "Warning: undefined variable '" << node->id << "' at line "
+           << line << ", column " << col << ", use 0" << endl;
+      value = 0;
+      return;
+    }
+    value = it->second;
+  }
+
+  void visit(OpExp *node) override {
+    (void)node;
+    value = 0;
+  }
+
+  void visit(IntExp *node) override {
+    value = (node == nullptr) ? 0 : node->val;
+  }
+};
+
+} // namespace
 
 using namespace std;
 using namespace fdmj;
 
 int execute(Program *root) {
-  cout << "TODO" << endl;
-  return 0;
+  if (root == nullptr)
+    return 0;
+  ExecutorVisitor v;
+  root->accept(v);
+  return v.returnValue;
 }

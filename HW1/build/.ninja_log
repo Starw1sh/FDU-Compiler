@@ -1,0 +1,20 @@
+# ninja log v5
+3	929	1772941678376147177	lib/ast/CMakeFiles/ast.dir/ast2xml.cc.o	d693021a20dd2c
+2	745	1772941678186742213	lib/ast/CMakeFiles/ast.dir/FDMJAST.cc.o	b82b1b86310c88c6
+3	701	1772941678141449721	lib/ast/CMakeFiles/ast.dir/minusIntConverter.cc.o	4e206d0233418c2d
+44	717	1772941678157919716	tools/main/CMakeFiles/main.dir/main.cc.o	3babcca6c1f75333
+5	894	1772942368393748756	lib/ast/CMakeFiles/ast.dir/executor.cc.o	6aded9dfabe443a3
+45	714	1772941678157919716	tools/test/CMakeFiles/test.dir/main.cc.o	ea834844d90a3602
+894	1170	1772942368665933717	tools/main/main	4b75dc1512b90ae
+43	1399	1772941678841424595	lib/frontend/CMakeFiles/frontend.dir/lexer.cc.o	5df5f567da2d165f
+44	2087	1772941679532553987	lib/frontend/CMakeFiles/frontend.dir/parser.cc.o	f8b2f6c2c3350c21
+4	1800	1772941679244601840	lib/ast/CMakeFiles/ast.dir/xml2ast.cc.o	ee29ecb1415e3af2
+894	1171	1772942368665933717	tools/test/test	37bc231ae1dda037
+2	10	1772941677453827344	lib/frontend/lexer.cc	3f2b669f15d8c9c3
+2	10	1772941677453827344	/home/guxue/fducompilerh2026/HW1/build/lib/frontend/lexer.cc	3f2b669f15d8c9c3
+2	43	1772941677486767338	/home/guxue/fducompilerh2026/HW1/build/lib/frontend/parser.cc	17d7c2b7300d0522
+2	43	1772941677486767338	lib/frontend/parser.cc	17d7c2b7300d0522
+2	43	1772941677486767338	lib/frontend/parser.tab.hh	17d7c2b7300d0522
+2	43	1772941677486767338	/home/guxue/fducompilerh2026/HW1/build/lib/frontend/parser.tab.hh	17d7c2b7300d0522
+4	2686	1772941680129026287	vendor/tinyxml2/CMakeFiles/vendor_xml.dir/tinyxml2.cc.o	37641b8ce62499eb
+4	803	1772942368294772407	lib/ast/CMakeFiles/ast.dir/constantPropagation.cc.o	28a82f6ae6e6c339
