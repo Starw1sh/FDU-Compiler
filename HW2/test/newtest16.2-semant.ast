@@ -10,7 +10,7 @@
             </VarDecl>
         </VarDeclList>
         <StmList>
-            <Assign bline="5" bpos="5" eline="5" epos="15">
+            <Assign bline="5" bpos="5" eline="5" epos="15" s_kind="Value" typeKind="Int" lvalue="true">
                 <ArrayExp bline="5" bpos="5" eline="5" epos="10" s_kind="Value" typeKind="Int" lvalue="true">
                     <ClassVar bline="5" bpos="5" eline="5" epos="7" s_kind="Value" typeKind="IntArray" lvalue="true" arity="0">
                         <IdExp bline="5" bpos="5" eline="5" epos="5" s_kind="Value" typeKind="Class" lvalue="true" cid="TestClass" id="x"/>

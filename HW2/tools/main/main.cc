@@ -28,6 +28,16 @@ int main(int argc, const char *argv[]) {
 
     file = argv[argc - 1];
 
+    // Write all per-test diagnostics to a dedicated file instead of stdout/stderr.
+    string file_log = file + ".2-semant.log";
+    ofstream log_stream(file_log, ios::out | ios::trunc);
+    if (!log_stream.is_open()) {
+        cerr << "Failed to open output log file: " << file_log << endl;
+        return EXIT_FAILURE;
+    }
+    streambuf* old_cout = cout.rdbuf(log_stream.rdbuf());
+    streambuf* old_cerr = cerr.rdbuf(log_stream.rdbuf());
+
     // boilerplate output filenames (used throughout the compiler pipeline)
     string file_ast = file + ".2.ast";        // ast in xml
     string file_ast_semant = file + ".2-semant.ast";
@@ -55,9 +65,13 @@ int main(int argc, const char *argv[]) {
 
     if (x->Error()) {
         std::cout << "AST is not valid when converting from AST with Semant Info!" << endl;
+        cout.rdbuf(old_cout);
+        cerr.rdbuf(old_cerr);
         return EXIT_FAILURE;  
     }
 
     x->SaveFile(file_ast_semant.c_str());
+    cout.rdbuf(old_cout);
+    cerr.rdbuf(old_cerr);
     return EXIT_SUCCESS;
 }

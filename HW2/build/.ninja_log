@@ -1,0 +1,10 @@
+# ninja log v5
+3646	4058	1773828968955163064	tools/main/main	4de428177ede3bbc
+6	6287	1773726440982635153	lib/util/CMakeFiles/util.dir/xml2ast.cc.o	75004f036ba965ae
+7	5928	1773726440623301738	vendor/tinyxml2/CMakeFiles/vendor_xml.dir/tinyxml2.cc.o	b4813adc84efa0e7
+6	2463	1773828967363414448	lib/util/CMakeFiles/util.dir/ast2xml.cc.o	68c44cef4aab6382
+2	1414	1773726436098841914	lib/ast/CMakeFiles/ast.dir/FDMJAST.cc.o	cc6f79d53400398a
+4	3646	1773828968547195364	lib/ast/CMakeFiles/ast.dir/namemaps.cc.o	d1d1e026941dba3b
+6	2446	1773828967346563473	lib/ast/CMakeFiles/ast.dir/setnamemaps.cc.o	d63b257788cb4613
+5	3459	1773828968357621908	lib/ast/CMakeFiles/ast.dir/semantanlyzer.cc.o	693b1fd173999d3c
+7	1576	1773828966474525577	tools/main/CMakeFiles/main.dir/main.cc.o	204dcec952fdf351

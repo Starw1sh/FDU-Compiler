@@ -12,13 +12,13 @@
                 </Type>
                 <IdExp id="a" bline="3" bpos="9" eline="3" epos="9"/>
                 <IntInitList>
-                    <IntExp val="6" bline="3" bpos="14" eline="3" epos="14"/>
-                    <IntExp val="3" bline="3" bpos="17" eline="3" epos="17"/>
-                    <IntExp val="0" bline="3" bpos="20" eline="3" epos="20"/>
-                    <IntExp val="5" bline="3" bpos="23" eline="3" epos="23"/>
-                    <IntExp val="9" bline="3" bpos="26" eline="3" epos="26"/>
-                    <IntExp val="1" bline="3" bpos="29" eline="3" epos="29"/>
-                    <IntExp val="2" bline="3" bpos="32" eline="3" epos="32"/>
+                    <IntExp val="6" bline="3" bpos="14" eline="3" epos="14" s_kind="Value" typeKind="Int" lvalue="false"/>
+                    <IntExp val="3" bline="3" bpos="17" eline="3" epos="17" s_kind="Value" typeKind="Int" lvalue="false"/>
+                    <IntExp val="0" bline="3" bpos="20" eline="3" epos="20" s_kind="Value" typeKind="Int" lvalue="false"/>
+                    <IntExp val="5" bline="3" bpos="23" eline="3" epos="23" s_kind="Value" typeKind="Int" lvalue="false"/>
+                    <IntExp val="9" bline="3" bpos="26" eline="3" epos="26" s_kind="Value" typeKind="Int" lvalue="false"/>
+                    <IntExp val="1" bline="3" bpos="29" eline="3" epos="29" s_kind="Value" typeKind="Int" lvalue="false"/>
+                    <IntExp val="2" bline="3" bpos="32" eline="3" epos="32" s_kind="Value" typeKind="Int" lvalue="false"/>
                 </IntInitList>
             </VarDecl>
             <VarDecl bline="4" bpos="3" eline="4" epos="14">
@@ -29,11 +29,11 @@
             </VarDecl>
         </VarDeclList>
         <StmList>
-            <Assign bline="6" bpos="3" eline="6" epos="6">
+            <Assign bline="6" bpos="3" eline="6" epos="6" s_kind="Value" typeKind="Int" lvalue="true">
                 <IdExp bline="6" bpos="3" eline="6" epos="3" s_kind="Value" typeKind="Int" lvalue="true" id="i"/>
                 <IntExp bline="6" bpos="5" eline="6" epos="5" s_kind="Value" typeKind="Int" lvalue="false" val="0"/>
             </Assign>
-            <Assign bline="7" bpos="3" eline="7" epos="16">
+            <Assign bline="7" bpos="3" eline="7" epos="16" s_kind="Value" typeKind="Class" lvalue="true" cid="b1">
                 <IdExp bline="7" bpos="3" eline="7" epos="4" s_kind="Value" typeKind="Class" lvalue="true" cid="b1" id="bo"/>
                 <NewObject bline="7" bpos="8" eline="7" epos="15" s_kind="Value" typeKind="Class" lvalue="false" cid="b1">
                     <Id id="b1"/>
@@ -41,7 +41,7 @@
             </Assign>
             <CallStm bline="8" bpos="3" eline="8" epos="30">
                 <IdExp bline="8" bpos="3" eline="8" epos="4" s_kind="Value" typeKind="Class" lvalue="true" cid="b1" id="bo"/>
-                <IdExp id="bubbleSort" bline="8" bpos="6" eline="8" epos="15" s_kind="MethodName"/>
+                <IdExp id="bubbleSort" bline="8" bpos="6" eline="8" epos="15"/>
                 <ParList>
                     <IdExp bline="8" bpos="17" eline="8" epos="17" s_kind="Value" typeKind="IntArray" lvalue="true" arity="0" id="a"/>
                     <Length bline="8" bpos="20" eline="8" epos="28" s_kind="Value" typeKind="Int" lvalue="false">
@@ -68,7 +68,7 @@
                         <PutCh bline="11" bpos="5" eline="11" epos="14">
                             <IntExp bline="11" bpos="11" eline="11" epos="12" s_kind="Value" typeKind="Int" lvalue="false" val="32"/>
                         </PutCh>
-                        <Assign bline="12" bpos="5" eline="12" epos="14">
+                        <Assign bline="12" bpos="5" eline="12" epos="14" s_kind="Value" typeKind="Int" lvalue="true">
                             <IdExp bline="12" bpos="5" eline="12" epos="5" s_kind="Value" typeKind="Int" lvalue="true" id="i"/>
                             <BinaryOp bline="12" bpos="9" eline="12" epos="13" s_kind="Value" typeKind="Int" lvalue="false">
                                 <IdExp bline="12" bpos="9" eline="12" epos="9" s_kind="Value" typeKind="Int" lvalue="true" id="i"/>
@@ -119,7 +119,7 @@
                         </VarDecl>
                     </VarDeclList>
                     <StmList>
-                        <Assign bline="23" bpos="5" eline="23" epos="10">
+                        <Assign bline="23" bpos="5" eline="23" epos="10" s_kind="Value" typeKind="Int" lvalue="true">
                             <IdExp bline="23" bpos="5" eline="23" epos="5" s_kind="Value" typeKind="Int" lvalue="true" id="i"/>
                             <IntExp bline="23" bpos="9" eline="23" epos="9" s_kind="Value" typeKind="Int" lvalue="false" val="0"/>
                         </Assign>
@@ -167,14 +167,17 @@
                                         </BinaryOp>
                                         <Nested bline="30" bpos="36" eline="34" epos="7">
                                             <StmList>
-                                                <Assign bline="31" bpos="9" eline="31" epos="24">
-                                                    <IdExp bline="31" bpos="9" eline="31" epos="12" s_kind="Value" typeKind="Int" lvalue="true" id="temp"/>
-                                                    <ArrayExp bline="31" bpos="16" eline="31" epos="23" s_kind="Value" typeKind="Int" lvalue="true">
-                                                        <IdExp bline="31" bpos="16" eline="31" epos="20" s_kind="Value" typeKind="IntArray" lvalue="true" arity="0" id="array"/>
-                                                        <IdExp bline="31" bpos="22" eline="31" epos="22" s_kind="Value" typeKind="Int" lvalue="true" id="i"/>
+                                                <Assign bline="31" bpos="9" eline="31" epos="29" s_kind="Value" typeKind="Int" lvalue="true">
+                                                    <ClassVar bline="31" bpos="9" eline="31" epos="17" s_kind="Value" typeKind="Int" lvalue="true">
+                                                        <This bline="31" bpos="9" eline="31" epos="12" s_kind="Value" typeKind="Class" lvalue="false" cid="b1"/>
+                                                        <IdExp id="temp" bline="31" bpos="14" eline="31" epos="17" s_kind="Value" typeKind="Int" lvalue="true"/>
+                                                    </ClassVar>
+                                                    <ArrayExp bline="31" bpos="21" eline="31" epos="28" s_kind="Value" typeKind="Int" lvalue="true">
+                                                        <IdExp bline="31" bpos="21" eline="31" epos="25" s_kind="Value" typeKind="IntArray" lvalue="true" arity="0" id="array"/>
+                                                        <IdExp bline="31" bpos="27" eline="31" epos="27" s_kind="Value" typeKind="Int" lvalue="true" id="i"/>
                                                     </ArrayExp>
                                                 </Assign>
-                                                <Assign bline="32" bpos="9" eline="32" epos="32">
+                                                <Assign bline="32" bpos="9" eline="32" epos="32" s_kind="Value" typeKind="Int" lvalue="true">
                                                     <ArrayExp bline="32" bpos="9" eline="32" epos="16" s_kind="Value" typeKind="Int" lvalue="true">
                                                         <IdExp bline="32" bpos="9" eline="32" epos="13" s_kind="Value" typeKind="IntArray" lvalue="true" arity="0" id="array"/>
                                                         <IdExp bline="32" bpos="15" eline="32" epos="15" s_kind="Value" typeKind="Int" lvalue="true" id="i"/>
@@ -188,7 +191,7 @@
                                                         </BinaryOp>
                                                     </ArrayExp>
                                                 </Assign>
-                                                <Assign bline="33" bpos="9" eline="33" epos="28">
+                                                <Assign bline="33" bpos="9" eline="33" epos="33" s_kind="Value" typeKind="Int" lvalue="true">
                                                     <ArrayExp bline="33" bpos="9" eline="33" epos="20" s_kind="Value" typeKind="Int" lvalue="true">
                                                         <IdExp bline="33" bpos="9" eline="33" epos="13" s_kind="Value" typeKind="IntArray" lvalue="true" arity="0" id="array"/>
                                                         <BinaryOp bline="33" bpos="15" eline="33" epos="19" s_kind="Value" typeKind="Int" lvalue="false">
@@ -197,12 +200,15 @@
                                                             <IntExp bline="33" bpos="19" eline="33" epos="19" s_kind="Value" typeKind="Int" lvalue="false" val="1"/>
                                                         </BinaryOp>
                                                     </ArrayExp>
-                                                    <IdExp bline="33" bpos="24" eline="33" epos="27" s_kind="Value" typeKind="Int" lvalue="true" id="temp"/>
+                                                    <ClassVar bline="33" bpos="24" eline="33" epos="32" s_kind="Value" typeKind="Int" lvalue="true">
+                                                        <This bline="33" bpos="24" eline="33" epos="27" s_kind="Value" typeKind="Class" lvalue="false" cid="b1"/>
+                                                        <IdExp id="temp" bline="33" bpos="29" eline="33" epos="32" s_kind="Value" typeKind="Int" lvalue="true"/>
+                                                    </ClassVar>
                                                 </Assign>
                                             </StmList>
                                         </Nested>
                                     </If>
-                                    <Assign bline="35" bpos="7" eline="35" epos="16">
+                                    <Assign bline="35" bpos="7" eline="35" epos="16" s_kind="Value" typeKind="Int" lvalue="true">
                                         <IdExp bline="35" bpos="7" eline="35" epos="7" s_kind="Value" typeKind="Int" lvalue="true" id="i"/>
                                         <BinaryOp bline="35" bpos="11" eline="35" epos="15" s_kind="Value" typeKind="Int" lvalue="false">
                                             <IdExp bline="35" bpos="11" eline="35" epos="11" s_kind="Value" typeKind="Int" lvalue="true" id="i"/>
@@ -216,7 +222,7 @@
                         <Return bline="38" bpos="5" eline="38" epos="44" s_kind="Value" typeKind="Int" lvalue="false">
                             <CallExp bline="38" bpos="12" eline="38" epos="43" s_kind="Value" typeKind="Int" lvalue="false">
                                 <This bline="38" bpos="12" eline="38" epos="15" s_kind="Value" typeKind="Class" lvalue="false" cid="b1"/>
-                                <IdExp id="bubbleSort" bline="38" bpos="17" eline="38" epos="26" s_kind="MethodName"/>
+                                <IdExp id="bubbleSort" bline="38" bpos="17" eline="38" epos="26"/>
                                 <ParList>
                                     <IdExp bline="38" bpos="28" eline="38" epos="32" s_kind="Value" typeKind="IntArray" lvalue="true" arity="0" id="array"/>
                                     <BinaryOp bline="38" bpos="35" eline="38" epos="42" s_kind="Value" typeKind="Int" lvalue="false">
