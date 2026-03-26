@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program bline="1" bpos="1" eline="20" epos="1">
+    <MainMethod bline="1" bpos="1" eline="6" epos="1">
+        <VarDeclList>
+            <VarDecl bline="2" bpos="5" eline="2" epos="24">
+                <Type typeKind="CLASS" bline="2" bpos="5" eline="2" epos="21">
+                    <IdExp id="A_Immutable" bline="2" bpos="11" eline="2" epos="21"/>
+                </Type>
+                <IdExp id="a" bline="2" bpos="23" eline="2" epos="23"/>
+            </VarDecl>
+        </VarDeclList>
+        <StmList>
+            <Assign bline="3" bpos="5" eline="3" epos="17">
+                <ArrayExp bline="3" bpos="5" eline="3" epos="10">
+                    <ClassVar bline="3" bpos="5" eline="3" epos="7">
+                        <IdExp bline="3" bpos="5" eline="3" epos="5" id="a"/>
+                        <IdExp id="b" bline="3" bpos="7" eline="3" epos="7"/>
+                    </ClassVar>
+                    <IntExp bline="3" bpos="9" eline="3" epos="9" val="1"/>
+                </ArrayExp>
+                <ClassVar bline="3" bpos="14" eline="3" epos="16">
+                    <IdExp bline="3" bpos="14" eline="3" epos="14" id="a"/>
+                    <IdExp id="a" bline="3" bpos="16" eline="3" epos="16"/>
+                </ClassVar>
+            </Assign>
+            <Assign bline="4" bpos="5" eline="4" epos="21">
+                <ArrayExp bline="4" bpos="5" eline="4" epos="12">
+                    <ClassVar bline="4" bpos="5" eline="4" epos="9">
+                        <ClassVar bline="4" bpos="5" eline="4" epos="7">
+                            <IdExp bline="4" bpos="5" eline="4" epos="5" id="a"/>
+                            <IdExp id="o" bline="4" bpos="7" eline="4" epos="7"/>
+                        </ClassVar>
+                        <IdExp id="b" bline="4" bpos="9" eline="4" epos="9"/>
+                    </ClassVar>
+                    <IntExp bline="4" bpos="11" eline="4" epos="11" val="2"/>
+                </ArrayExp>
+                <ClassVar bline="4" bpos="16" eline="4" epos="20">
+                    <ClassVar bline="4" bpos="16" eline="4" epos="18">
+                        <IdExp bline="4" bpos="16" eline="4" epos="16" id="a"/>
+                        <IdExp id="o" bline="4" bpos="18" eline="4" epos="18"/>
+                    </ClassVar>
+                    <IdExp id="a" bline="4" bpos="20" eline="4" epos="20"/>
+                </ClassVar>
+            </Assign>
+            <Assign bline="5" bpos="5" eline="5" epos="14">
+                <ClassVar bline="5" bpos="5" eline="5" epos="9">
+                    <ClassVar bline="5" bpos="5" eline="5" epos="7">
+                        <IdExp bline="5" bpos="5" eline="5" epos="5" id="a"/>
+                        <IdExp id="o" bline="5" bpos="7" eline="5" epos="7"/>
+                    </ClassVar>
+                    <IdExp id="a" bline="5" bpos="9" eline="5" epos="9"/>
+                </ClassVar>
+                <IntExp bline="5" bpos="13" eline="5" epos="13" val="3"/>
+            </Assign>
+        </StmList>
+    </MainMethod>
+    <ClassDeclList>
+        <ClassDecl bline="8" bpos="1" eline="15" epos="1">
+            <IdExp id="TestClass_Immutable" bline="8" bpos="14" eline="8" epos="32"/>
+            <VarDeclList>
+                <VarDecl bline="9" bpos="5" eline="9" epos="10">
+                    <Type typeKind="INT" bline="9" bpos="5" eline="9" epos="7"/>
+                    <IdExp id="a" bline="9" bpos="9" eline="9" epos="9"/>
+                </VarDecl>
+                <VarDecl bline="10" bpos="5" eline="10" epos="12">
+                    <Type typeKind="ARRAY" bline="10" bpos="5" eline="10" epos="9">
+                        <Arity val="0" bline="10" bpos="8" eline="10" epos="8"/>
+                    </Type>
+                    <IdExp id="b" bline="10" bpos="11" eline="10" epos="11"/>
+                </VarDecl>
+            </VarDeclList>
+            <MethodDeclList>
+                <MethodDecl bline="12" bpos="5" eline="14" epos="5">
+                    <Type typeKind="CLASS" bline="12" bpos="12" eline="12" epos="36">
+                        <IdExp id="TestClass_Immutable" bline="12" bpos="18" eline="12" epos="36"/>
+                    </Type>
+                    <IdExp id="test1" bline="12" bpos="38" eline="12" epos="42"/>
+                    <FormalList>
+                        <Formal bline="12" bpos="44" eline="12" epos="70">
+                            <Type typeKind="CLASS" bline="12" bpos="44" eline="12" epos="68">
+                                <IdExp id="TestClass_Immutable" bline="12" bpos="50" eline="12" epos="68"/>
+                            </Type>
+                            <IdExp bline="12" bpos="70" eline="12" epos="70" id="a"/>
+                        </Formal>
+                    </FormalList>
+                    <VarDeclList>
+                        <VarDecl bline="13" bpos="9" eline="13" epos="16">
+                            <Type typeKind="ARRAY" bline="13" bpos="9" eline="13" epos="13">
+                                <Arity val="0" bline="13" bpos="12" eline="13" epos="12"/>
+                            </Type>
+                            <IdExp id="a" bline="13" bpos="15" eline="13" epos="15"/>
+                        </VarDecl>
+                    </VarDeclList>
+                    <StmList/>
+                </MethodDecl>
+            </MethodDeclList>
+        </ClassDecl>
+        <ClassDecl bline="17" bpos="1" eline="20" epos="1">
+            <IdExp id="A_Immutable" bline="17" bpos="14" eline="17" epos="24"/>
+            <ExtendsId eid="TestClass_Immutable" bline="17" bpos="34" eline="17" epos="52"/>
+            <VarDeclList>
+                <VarDecl bline="18" bpos="4" eline="18" epos="9">
+                    <Type typeKind="INT" bline="18" bpos="4" eline="18" epos="6"/>
+                    <IdExp id="a" bline="18" bpos="8" eline="18" epos="8"/>
+                </VarDecl>
+                <VarDecl bline="19" bpos="4" eline="19" epos="31">
+                    <Type typeKind="CLASS" bline="19" bpos="4" eline="19" epos="28">
+                        <IdExp id="TestClass_Immutable" bline="19" bpos="10" eline="19" epos="28"/>
+                    </Type>
+                    <IdExp id="o" bline="19" bpos="30" eline="19" epos="30"/>
+                </VarDecl>
+            </VarDeclList>
+            <MethodDeclList/>
+        </ClassDecl>
+    </ClassDeclList>
+</Program>

@@ -41,6 +41,18 @@ Formal* make_return_formal(AST* owner, Type* return_type) {
     return new Formal(pos, return_type, ret_id);
 }
 
+bool check_immutable(string classname)
+{
+    // cout<<"check_immutable "+classname<<endl;
+    if(classname.length()<10) return false;
+    const string _immutable="_Immutable";
+    for(int i=1;i<=10;i++)
+    {
+        if(classname[classname.length()-i]!=_immutable[10-i]) return false;
+    }
+    return true;
+}
+
 } // namespace
 
 void AST_Name_Map_Visitor::visit(Program* node) {
@@ -87,6 +99,14 @@ void AST_Name_Map_Visitor::visit(ClassDecl* node) {
         if (!name_maps->add_class_hiearchy(current_visiting_class, node->eid->id)) {
             fail_with_msg("invalid class hierarchy for class: " + current_visiting_class, node);
         }
+    }
+    if (check_immutable(current_visiting_class))
+    {
+        if(!name_maps->set_class_immutable(current_visiting_class,true))
+        {
+            fail_with_msg("class not declared: " + current_visiting_class);
+        }
+        // fail_with_msg("-----------immutable class decleared!-----------" + current_visiting_class);
     }
 
     if (node->vdl != nullptr) {

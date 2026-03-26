@@ -151,15 +151,15 @@ void AST_Semant_Visitor::visit(Program* node) {
     if (node == nullptr) {
         return;
     }
-    if (node->main != nullptr) {
-        node->main->accept(*this);
-    }
     if (node->cdl != nullptr) {
         for (auto cl : *(node->cdl)) {
             if (cl != nullptr) {
                 cl->accept(*this);
             }
         }
+    }
+    if (node->main != nullptr) {
+        node->main->accept(*this);
     }
 }
 
@@ -211,6 +211,10 @@ void AST_Semant_Visitor::visit(ClassDecl* node) {
             seen.insert(cur);
             cur = name_maps->get_parent(cur);
         }*/
+        if (name_maps->is_class_immutable(parent)&&!name_maps->is_class_immutable(current_visiting_class))
+        {
+            fail_with_msg("Class "+current_visiting_class+" extends immutable class "+parent+" but is not marked as immutable. Immutability is hereditary.");
+        }
     }
 
     if (node->vdl != nullptr) {
@@ -672,7 +676,11 @@ void AST_Semant_Visitor::visit(ClassVar* node) {
         seen.insert(cur);
         VarDecl* vd = name_maps->get_class_var(cur, node->id->id);
         if (vd != nullptr && vd->type != nullptr) {
-            AST_Semant* field_sem = semant_from_type(vd->type, true);
+            AST_Semant* field_sem;
+            if(name_maps->is_class_immutable(cur))
+                field_sem = semant_from_type(vd->type, false);
+            else
+                field_sem = semant_from_type(vd->type, true);
             semant_map->setSemant(node->id, field_sem);
             semant_map->setSemant(node, field_sem);
             return;
