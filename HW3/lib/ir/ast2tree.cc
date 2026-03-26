@@ -106,17 +106,23 @@ Method_var_table* generate_method_var_table(string class_name, string method_nam
         return mvt;
     }
 
+    bool has_return_formal = false;
+    string return_formal_name;
+    tree::Type return_formal_type = tree::Type::INT;
+
     vector<string> *fl = nm->get_method_formal_list_string(class_name, method_name);
     if (fl != nullptr) {
         for (const string &fn : *fl) {
-            // keep the return pseudo-formal out of normal variable map
-            if (fn.rfind("_^return^_", 0) == 0) {
-                continue;
-            }
             Formal *f = nm->get_method_formal(class_name, method_name, fn);
             tree::Type t = tree::Type::INT;
             if (f != nullptr && f->type != nullptr) {
                 t = ast_type_to_tree_type(f->type->typeKind);
+            }
+            if (fn.rfind("_^return^_", 0) == 0) {
+                has_return_formal = true;
+                return_formal_name = fn;
+                return_formal_type = t;
+                continue;
             }
             (*(mvt->var_temp_map))[fn] = tm->newtemp();
             (*(mvt->var_type_map))[fn] = t;
@@ -137,6 +143,11 @@ Method_var_table* generate_method_var_table(string class_name, string method_nam
             (*(mvt->var_type_map))[vn] = t;
         }
         delete vl;
+    }
+
+    if (has_return_formal) {
+        (*(mvt->var_temp_map))[return_formal_name] = tm->newtemp();
+        (*(mvt->var_type_map))[return_formal_name] = return_formal_type;
     }
 
     return mvt;
@@ -179,17 +190,13 @@ void ASTToTreeVisitor::visit(fdmj::MainMethod* node) {
         }
     }
 
-    // keep entry label as the largest allocated label id for deterministic output
-    tree::Label *entry = method_temp_map->newlabel();
-    sl->insert(sl->begin(), new tree::LabelStm(entry));
-
     tree::FuncDecl *fd = new tree::FuncDecl(
         "__$main__^main",
         nullptr,
         to_seq(sl),
         tree::Type::INT,
-        method_temp_map->next_temp,
-        entry->num
+        method_temp_map->next_temp - 1,
+        method_temp_map->next_label - 1
     );
     visit_tree_result = fd;
 }
@@ -239,6 +246,18 @@ void ASTToTreeVisitor::visit(fdmj::Nested* node) {
 void ASTToTreeVisitor::visit(fdmj::If* node) {
     node->exp->accept(*this);
     Tr_cx *cond = visit_exp_result->unCx(method_temp_map);
+    tree::Stm *then_stm = nullptr;
+    tree::Stm *else_stm = nullptr;
+
+    if (node->stm1 != nullptr) {
+        node->stm1->accept(*this);
+        then_stm = dynamic_cast<tree::Stm*>(visit_tree_result);
+    }
+
+    if (node->stm2 != nullptr) {
+        node->stm2->accept(*this);
+        else_stm = dynamic_cast<tree::Stm*>(visit_tree_result);
+    }
 
     tree::Label *lt = method_temp_map->newlabel();
     tree::Label *lf = method_temp_map->newlabel();
@@ -249,24 +268,13 @@ void ASTToTreeVisitor::visit(fdmj::If* node) {
     vector<tree::Stm*> *sl = new vector<tree::Stm*>();
     sl->push_back(cond->stm);
     sl->push_back(new tree::LabelStm(lt));
-
-    if (node->stm1 != nullptr) {
-        node->stm1->accept(*this);
-        tree::Stm *then_stm = dynamic_cast<tree::Stm*>(visit_tree_result);
-        if (then_stm != nullptr) {
-            sl->push_back(then_stm);
-        }
+    if (then_stm != nullptr) {
+        sl->push_back(then_stm);
     }
-
     sl->push_back(new tree::Jump(le));
     sl->push_back(new tree::LabelStm(lf));
-
-    if (node->stm2 != nullptr) {
-        node->stm2->accept(*this);
-        tree::Stm *else_stm = dynamic_cast<tree::Stm*>(visit_tree_result);
-        if (else_stm != nullptr) {
-            sl->push_back(else_stm);
-        }
+    if (else_stm != nullptr) {
+        sl->push_back(else_stm);
     }
 
     sl->push_back(new tree::LabelStm(le));
@@ -277,16 +285,17 @@ void ASTToTreeVisitor::visit(fdmj::While* node) {
     tree::Label *old_continue = continue_label;
     tree::Label *old_break = break_label;
 
+    node->exp->accept(*this);
+    Tr_cx *cond = visit_exp_result->unCx(method_temp_map);
+
     tree::Label *lt = method_temp_map->newlabel();
     tree::Label *lb = method_temp_map->newlabel();
     tree::Label *le = method_temp_map->newlabel();
-    continue_label = lt;
-    break_label = le;
-
-    node->exp->accept(*this);
-    Tr_cx *cond = visit_exp_result->unCx(method_temp_map);
     cond->true_list->patch(lb);
     cond->false_list->patch(le);
+
+    continue_label = lt;
+    break_label = le;
 
     vector<tree::Stm*> *sl = new vector<tree::Stm*>();
     sl->push_back(new tree::LabelStm(lt));
