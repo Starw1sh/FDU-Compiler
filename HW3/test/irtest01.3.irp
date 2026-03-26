@@ -37,12 +37,12 @@
                 <Label label="107"/>
             </Sequence>
             <Sequence>
-                <Label label="110"/>
-                <CJump relop="&lt;" true="111" false="112">
+                <Label label="108"/>
+                <CJump relop="&lt;" true="109" false="110">
                     <Temp type="INT" temp="100"/>
                     <Temp type="INT" temp="101"/>
                 </CJump>
-                <Label label="111"/>
+                <Label label="109"/>
                 <Sequence>
                     <ExpressionStatement>
                         <ExtCall extfun="putch">
@@ -59,8 +59,8 @@
                         </BinOp>
                     </Move>
                 </Sequence>
-                <Jump label="110"/>
-                <Label label="112"/>
+                <Jump label="108"/>
+                <Label label="110"/>
             </Sequence>
             <Return>
                 <Const value="0"/>
