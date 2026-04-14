@@ -12,7 +12,7 @@
             </Move>
             <Return>
                 <BinOp type="INT" op="+">
-                    <ExtCall extfun="getint">
+                    <ExtCall type="INT" extfun="getint">
                         <Arguments/>
                     </ExtCall>
                     <ESeq>

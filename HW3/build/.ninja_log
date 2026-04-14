@@ -1,18 +1,18 @@
 # ninja log v5
+4	1602	1774529542613420083	lib/ir/CMakeFiles/ir.dir/tr_exp.cc.o	b98e5096c2bd00e7
+4	2200	1774529543211420046	tools/main/CMakeFiles/main.dir/main.cc.o	9e77bb378a7001cc
 5	3002	1774529544013086663	vendor/tinyxml2/CMakeFiles/vendor_xml.dir/tinyxml2.cc.o	8d9d34c6b2c76393
 3	3652	1774529544663086621	lib/ast/CMakeFiles/ast.dir/namemaps.cc.o	a35530c43fc40f12
 2	1765	1774531361706054831	lib/util/CMakeFiles/util.dir/ast2xml.cc.o	213577732ed8474b
-2	2747	1774532697231903150	lib/ir/CMakeFiles/ir.dir/ast2tree.cc.o	e703dba468dbe7e0
-2748	2972	1774532697455569740	tools/patchdemo/patchdemo	4f94acf604e2d7a6
+2	2788	1775736877997107916	lib/ir/CMakeFiles/ir.dir/ast2tree.cc.o	e703dba468dbe7e0
+2789	3022	1775736878227758511	tools/main/main	c46e297536f8d402
+2789	3023	1775736878231602686	tools/patchdemo/patchdemo	4f94acf604e2d7a6
 4	1026	1774529542037087237	lib/ir/CMakeFiles/ir.dir/treep.cc.o	948f86e3fb804203
-2747	2975	1774532697455569740	tools/main/main	c46e297536f8d402
 2	1279	1774529542292753891	lib/util/CMakeFiles/util.dir/print_config.cc.o	6852e36a56f6658b
-2	1600	1774529542613420083	lib/util/CMakeFiles/util.dir/tree2xml.cc.o	5b808a6b6a47aabd
 3	3849	1774529544862419945	lib/util/CMakeFiles/util.dir/xml2ast.cc.o	5985143a9ba88615
-4	1602	1774529542613420083	lib/ir/CMakeFiles/ir.dir/tr_exp.cc.o	b98e5096c2bd00e7
+32	932	1775660588951873136	lib/util/CMakeFiles/util.dir/tree2xml.cc.o	5b808a6b6a47aabd
 3	2312	1774529543324086706	lib/ast/CMakeFiles/ast.dir/FDMJAST.cc.o	9d3fda9192671328
 5	2395	1774529543410753366	tools/patchdemo/CMakeFiles/patchdemo.dir/patchdemo.cc.o	be34c461bb8c433b
-4	2200	1774529543211420046	tools/main/CMakeFiles/main.dir/main.cc.o	9e77bb378a7001cc
-3	2790	1774532844755228060	lib/ir/CMakeFiles/ir.dir/ast2tree.cc.o	e703dba468dbe7e0
-2790	3076	1774532845040682616	tools/patchdemo/patchdemo	4f94acf604e2d7a6
-2790	3077	1774532845044592955	tools/main/main	c46e297536f8d402
+4	3030	1775737467867130994	lib/ir/CMakeFiles/ir.dir/ast2tree.cc.o	e703dba468dbe7e0
+3031	3244	1775737468081166626	tools/main/main	c46e297536f8d402
+3031	3244	1775737468081166626	tools/patchdemo/patchdemo	4f94acf604e2d7a6

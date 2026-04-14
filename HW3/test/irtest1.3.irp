@@ -7,14 +7,14 @@
                 <Const value="1"/>
             </Move>
             <ExpressionStatement>
-                <ExtCall extfun="putint">
+                <ExtCall type="INT" extfun="putint">
                     <Arguments>
                         <Temp type="INT" temp="100"/>
                     </Arguments>
                 </ExtCall>
             </ExpressionStatement>
             <ExpressionStatement>
-                <ExtCall extfun="putch">
+                <ExtCall type="INT" extfun="putch">
                     <Arguments>
                         <Const value="10"/>
                     </Arguments>
