@@ -1,5 +1,5 @@
-<Program kind="PROGRAM" last_label_num="100" last_temp_num="105">
-    <funcdecl kind="FUNCDECL" name="__$main__^main" last_label_num="100" last_temp_num="105">
+<Program kind="PROGRAM" last_label_num="100" last_temp_num="103">
+    <funcdecl kind="FUNCDECL" name="__$main__^main" last_label_num="100" last_temp_num="103">
         <block kind="BLOCK" entry="100">
             <label kind="LABEL" name="100"/>
             <move kind="MOVE" dst="100" temp_type="int">

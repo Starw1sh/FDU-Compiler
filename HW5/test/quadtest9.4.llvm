@@ -1,0 +1,167 @@
+; Generated LLVM IR from Quad representation
+
+declare i8* @malloc(i32)
+declare void @free(i8*)
+
+declare i32 @printf(i8*, ...)
+declare i32 @__isoc99_scanf(i8*, ...)
+
+declare void @exit(i64)
+
+declare i64 @getint()
+declare i64 @getch()
+declare i64 @getarray(i64*)
+declare void @putint(i64)
+declare void @putch(i64)
+declare void @putarray(i64, i64*)
+
+define i32 @main() {
+entry:
+  br label %label_100
+
+label_100:
+  %t10000 = add i64 0, 0
+  %t10100 = add i64 0, 0
+  %t0 = mul i64 20, 2
+  %t1 = trunc i64 %t0 to i32
+  %t2 = call i8* @malloc(i32 %t1)
+  %t10300 = ptrtoint i8* %t2 to i64
+  %t3 = mul i64 16, 2
+  %t11700 = add i64 %t10300, %t3
+  %t4 = ptrtoint i64 (i64)* @A$f to i64
+  %t5 = inttoptr i64 %t11700 to i64*
+  store i64 %t4, i64* %t5
+  %t10001 = add i64 %t10300, 0
+  %t6 = mul i64 20, 2
+  %t7 = trunc i64 %t6 to i32
+  %t8 = call i8* @malloc(i32 %t7)
+  %t10400 = ptrtoint i8* %t8 to i64
+  %t9 = mul i64 16, 2
+  %t11800 = add i64 %t10400, %t9
+  %t10 = ptrtoint i64 (i64)* @B$f to i64
+  %t11 = inttoptr i64 %t11800 to i64*
+  store i64 %t10, i64* %t11
+  %t10101 = add i64 %t10400, 0
+  %t12 = mul i64 16, 2
+  %t11900 = add i64 %t10001, %t12
+  %t13 = inttoptr i64 %t11900 to i64*
+  %t10700 = load i64, i64* %t13
+  %t14 = inttoptr i64 %t10700 to i64(i64)*
+  %t15 = call i64 %t14(i64 %t10001)
+  %t16 = mul i64 16, 2
+  %t12000 = add i64 %t10101, %t16
+  %t17 = inttoptr i64 %t12000 to i64*
+  %t10900 = load i64, i64* %t17
+  %t18 = inttoptr i64 %t10900 to i64(i64)*
+  %t19 = call i64 %t18(i64 %t10101)
+  %t20 = mul i64 0, 2
+  %t12100 = add i64 %t10001, %t20
+  %t21 = inttoptr i64 %t12100 to i64*
+  %t12200 = load i64, i64* %t21
+  %t22 = mul i64 4, 2
+  %t12300 = add i64 %t10001, %t22
+  %t23 = inttoptr i64 %t12300 to i64*
+  %t12400 = load i64, i64* %t23
+  %t12500 = add i64 %t12200, %t12400
+  %t24 = mul i64 0, 2
+  %t12600 = add i64 %t10101, %t24
+  %t25 = inttoptr i64 %t12600 to i64*
+  %t12700 = load i64, i64* %t25
+  %t12800 = add i64 %t12500, %t12700
+  %t26 = mul i64 8, 2
+  %t12900 = add i64 %t10101, %t26
+  %t27 = inttoptr i64 %t12900 to i64*
+  %t13000 = load i64, i64* %t27
+  %t13100 = add i64 %t12800, %t13000
+  %t28 = mul i64 12, 2
+  %t13200 = add i64 %t10101, %t28
+  %t29 = inttoptr i64 %t13200 to i64*
+  %t13300 = load i64, i64* %t29
+  %t11100 = add i64 %t13100, %t13300
+  call void @putint(i64 %t11100)
+  call void @putch(i64 10)
+  %t10002 = add i64 %t10101, 0
+  %t30 = mul i64 0, 2
+  %t13400 = add i64 %t10002, %t30
+  %t31 = inttoptr i64 %t13400 to i64*
+  %t13500 = load i64, i64* %t31
+  %t32 = mul i64 0, 2
+  %t13600 = add i64 %t10101, %t32
+  %t33 = inttoptr i64 %t13600 to i64*
+  %t13700 = load i64, i64* %t33
+  %t13800 = add i64 %t13500, %t13700
+  %t34 = mul i64 8, 2
+  %t13900 = add i64 %t10101, %t34
+  %t35 = inttoptr i64 %t13900 to i64*
+  %t14000 = load i64, i64* %t35
+  %t14100 = add i64 %t13800, %t14000
+  %t36 = mul i64 12, 2
+  %t14200 = add i64 %t10101, %t36
+  %t37 = inttoptr i64 %t14200 to i64*
+  %t14300 = load i64, i64* %t37
+  %t11400 = add i64 %t14100, %t14300
+  call void @putint(i64 %t11400)
+  call void @putch(i64 10)
+  %t38 = trunc i64 1 to i32
+  ret i32 %t38
+
+  ; Default return
+  ret i32 0
+}
+
+define i64 @A$f(i64 %t100) {
+entry:
+  br label %label_100
+
+label_100:
+  %t0 = mul i64 0, 2
+  %t10200 = add i64 %t100, %t0
+  %t1 = inttoptr i64 %t10200 to i64*
+  store i64 1, i64* %t1
+  %t2 = mul i64 4, 2
+  %t10300 = add i64 %t100, %t2
+  %t3 = inttoptr i64 %t10300 to i64*
+  store i64 2, i64* %t3
+  ret i64 0
+
+  ; Default return
+  ret i64 0
+}
+
+define i64 @B$f(i64 %t100) {
+entry:
+  br label %label_100
+
+label_100:
+  %t0 = mul i64 0, 2
+  %t10200 = add i64 %t100, %t0
+  %t1 = inttoptr i64 %t10200 to i64*
+  store i64 4, i64* %t1
+  %t2 = mul i64 8, 2
+  %t10300 = add i64 %t100, %t2
+  %t3 = inttoptr i64 %t10300 to i64*
+  store i64 30, i64* %t3
+  %t4 = mul i64 12, 2
+  %t10400 = add i64 %t100, %t4
+  %t5 = inttoptr i64 %t10400 to i64*
+  store i64 100, i64* %t5
+  %t6 = mul i64 0, 2
+  %t10500 = add i64 %t100, %t6
+  %t7 = inttoptr i64 %t10500 to i64*
+  %t10600 = load i64, i64* %t7
+  %t8 = mul i64 8, 2
+  %t10700 = add i64 %t100, %t8
+  %t9 = inttoptr i64 %t10700 to i64*
+  %t10800 = load i64, i64* %t9
+  %t10900 = add i64 %t10600, %t10800
+  %t10 = mul i64 12, 2
+  %t11000 = add i64 %t100, %t10
+  %t11 = inttoptr i64 %t11000 to i64*
+  %t11100 = load i64, i64* %t11
+  %t11200 = add i64 %t10900, %t11100
+  ret i64 %t11200
+
+  ; Default return
+  ret i64 0
+}
+
