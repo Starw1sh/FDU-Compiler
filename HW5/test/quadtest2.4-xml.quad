@@ -1,5 +1,5 @@
-<Program kind="PROGRAM" last_label_num="113" last_temp_num="170">
-    <funcdecl kind="FUNCDECL" name="__$main__^main" last_label_num="113" last_temp_num="170">
+<Program kind="PROGRAM" last_label_num="113" last_temp_num="139">
+    <funcdecl kind="FUNCDECL" name="__$main__^main" last_label_num="113" last_temp_num="139">
         <block kind="BLOCK" entry="113">
             <label kind="LABEL" name="113"/>
             <move kind="MOVE" dst="102" temp_type="ptr">
@@ -27,11 +27,11 @@
                 </def>
             </moveextcall>
             <ptrcalc kind="PTR_CALC">
-                <dst kind="TEMP" id="138" type="ptr"/>
+                <dst kind="TEMP" id="137" type="ptr"/>
                 <ptr kind="TEMP" id="104" type="ptr"/>
                 <offset kind="CONST" value="0"/>
                 <def>
-                    <temp id="138"/>
+                    <temp id="137"/>
                 </def>
                 <use>
                     <temp id="104"/>
@@ -39,9 +39,9 @@
             </ptrcalc>
             <store kind="STORE">
                 <src kind="NAME" name="fib^f"/>
-                <dst kind="TEMP" id="138" type="ptr"/>
+                <dst kind="TEMP" id="137" type="ptr"/>
                 <use>
-                    <temp id="138"/>
+                    <temp id="137"/>
                 </use>
             </store>
             <move kind="MOVE" dst="102" temp_type="ptr">
@@ -250,17 +250,17 @@
                 </use>
             </cjump>
             <label kind="LABEL" name="105"/>
-            <movebinop kind="MOVE_BINOP" dst="165" temp_type="int" op="-">
+            <movebinop kind="MOVE_BINOP" dst="138" temp_type="int" op="-">
                 <left kind="CONST" value="0"/>
                 <right kind="CONST" value="1"/>
                 <def>
-                    <temp id="165"/>
+                    <temp id="138"/>
                 </def>
             </movebinop>
             <return kind="RETURN">
-                <value kind="TEMP" id="165" type="int"/>
+                <value kind="TEMP" id="138" type="int"/>
                 <use>
-                    <temp id="165"/>
+                    <temp id="138"/>
                 </use>
             </return>
             <jump kind="JUMP" target="107"/>
@@ -277,23 +277,23 @@
             </cjump>
             <label kind="LABEL" name="111"/>
             <ptrcalc kind="PTR_CALC">
-                <dst kind="TEMP" id="166" type="ptr"/>
+                <dst kind="TEMP" id="139" type="ptr"/>
                 <ptr kind="TEMP" id="102" type="ptr"/>
                 <offset kind="CONST" value="0"/>
                 <def>
-                    <temp id="166"/>
+                    <temp id="139"/>
                 </def>
                 <use>
                     <temp id="102"/>
                 </use>
             </ptrcalc>
             <load kind="LOAD" dst="132" temp_type="ptr">
-                <src kind="TEMP" id="166" type="ptr"/>
+                <src kind="TEMP" id="139" type="ptr"/>
                 <def>
                     <temp id="132"/>
                 </def>
                 <use>
-                    <temp id="166"/>
+                    <temp id="139"/>
                 </use>
             </load>
             <movecall kind="MOVE_CALL" dst="133" temp_type="int">
@@ -307,14 +307,19 @@
                             <value kind="TEMP" id="100" type="int"/>
                         </arg>
                     </args>
+                    <use>
+                        <temp id="132"/>
+                        <temp id="102"/>
+                        <temp id="100"/>
+                    </use>
                 </call>
                 <def>
                     <temp id="133"/>
                 </def>
                 <use>
+                    <temp id="132"/>
                     <temp id="102"/>
                     <temp id="100"/>
-                    <temp id="132"/>
                 </use>
             </movecall>
             <extcall kind="EXTCALL" name="putint">
@@ -358,7 +363,7 @@
             </return>
         </block>
     </funcdecl>
-    <funcdecl kind="FUNCDECL" name="fib^f" last_label_num="108" last_temp_num="118">
+    <funcdecl kind="FUNCDECL" name="fib^f" last_label_num="108" last_temp_num="116">
         <params>
             <param temp="100"/>
             <param temp="101"/>
@@ -448,14 +453,19 @@
                             <value kind="TEMP" id="104" type="int"/>
                         </arg>
                     </args>
+                    <use>
+                        <temp id="104"/>
+                        <temp id="106"/>
+                        <temp id="105"/>
+                    </use>
                 </call>
                 <def>
                     <temp id="107"/>
                 </def>
                 <use>
                     <temp id="104"/>
-                    <temp id="105"/>
                     <temp id="106"/>
+                    <temp id="105"/>
                 </use>
             </movecall>
             <move kind="MOVE" dst="113" temp_type="int">
@@ -468,23 +478,23 @@
                 </use>
             </move>
             <ptrcalc kind="PTR_CALC">
-                <dst kind="TEMP" id="116" type="ptr"/>
+                <dst kind="TEMP" id="115" type="ptr"/>
                 <ptr kind="TEMP" id="100" type="ptr"/>
                 <offset kind="CONST" value="0"/>
                 <def>
-                    <temp id="116"/>
+                    <temp id="115"/>
                 </def>
                 <use>
                     <temp id="100"/>
                 </use>
             </ptrcalc>
             <load kind="LOAD" dst="108" temp_type="ptr">
-                <src kind="TEMP" id="116" type="ptr"/>
+                <src kind="TEMP" id="115" type="ptr"/>
                 <def>
                     <temp id="108"/>
                 </def>
                 <use>
-                    <temp id="116"/>
+                    <temp id="115"/>
                 </use>
             </load>
             <move kind="MOVE" dst="111" temp_type="ptr">
@@ -526,21 +536,26 @@
                             <value kind="TEMP" id="109" type="int"/>
                         </arg>
                     </args>
+                    <use>
+                        <temp id="109"/>
+                        <temp id="111"/>
+                        <temp id="110"/>
+                    </use>
                 </call>
                 <def>
                     <temp id="112"/>
                 </def>
                 <use>
                     <temp id="109"/>
-                    <temp id="110"/>
                     <temp id="111"/>
+                    <temp id="110"/>
                 </use>
             </movecall>
-            <movebinop kind="MOVE_BINOP" dst="118" temp_type="int" op="+">
+            <movebinop kind="MOVE_BINOP" dst="116" temp_type="int" op="+">
                 <left kind="TEMP" id="113" type="int"/>
                 <right kind="TEMP" id="112" type="int"/>
                 <def>
-                    <temp id="118"/>
+                    <temp id="116"/>
                 </def>
                 <use>
                     <temp id="112"/>
@@ -548,9 +563,9 @@
                 </use>
             </movebinop>
             <return kind="RETURN">
-                <value kind="TEMP" id="118" type="int"/>
+                <value kind="TEMP" id="116" type="int"/>
                 <use>
-                    <temp id="118"/>
+                    <temp id="116"/>
                 </use>
             </return>
             <label kind="LABEL" name="107"/>

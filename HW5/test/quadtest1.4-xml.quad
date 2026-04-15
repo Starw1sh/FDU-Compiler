@@ -1,5 +1,5 @@
-<Program kind="PROGRAM" last_label_num="133" last_temp_num="165">
-    <funcdecl kind="FUNCDECL" name="__$main__^main" last_label_num="108" last_temp_num="140">
+<Program kind="PROGRAM" last_label_num="133" last_temp_num="158">
+    <funcdecl kind="FUNCDECL" name="__$main__^main" last_label_num="108" last_temp_num="133">
         <block kind="BLOCK" entry="108">
             <label kind="LABEL" name="108"/>
             <moveextcall kind="MOVE_EXTCALL" dst="100" temp_type="ptr">
@@ -22,11 +22,11 @@
                 </use>
             </store>
             <ptrcalc kind="PTR_CALC">
-                <dst kind="TEMP" id="123" type="ptr"/>
+                <dst kind="TEMP" id="122" type="ptr"/>
                 <ptr kind="TEMP" id="100" type="ptr"/>
                 <offset kind="CONST" value="4"/>
                 <def>
-                    <temp id="123"/>
+                    <temp id="122"/>
                 </def>
                 <use>
                     <temp id="100"/>
@@ -34,6 +34,24 @@
             </ptrcalc>
             <store kind="STORE">
                 <src kind="CONST" value="6"/>
+                <dst kind="TEMP" id="122" type="ptr"/>
+                <use>
+                    <temp id="122"/>
+                </use>
+            </store>
+            <ptrcalc kind="PTR_CALC">
+                <dst kind="TEMP" id="123" type="ptr"/>
+                <ptr kind="TEMP" id="100" type="ptr"/>
+                <offset kind="CONST" value="8"/>
+                <def>
+                    <temp id="123"/>
+                </def>
+                <use>
+                    <temp id="100"/>
+                </use>
+            </ptrcalc>
+            <store kind="STORE">
+                <src kind="CONST" value="3"/>
                 <dst kind="TEMP" id="123" type="ptr"/>
                 <use>
                     <temp id="123"/>
@@ -42,7 +60,7 @@
             <ptrcalc kind="PTR_CALC">
                 <dst kind="TEMP" id="124" type="ptr"/>
                 <ptr kind="TEMP" id="100" type="ptr"/>
-                <offset kind="CONST" value="8"/>
+                <offset kind="CONST" value="12"/>
                 <def>
                     <temp id="124"/>
                 </def>
@@ -51,7 +69,7 @@
                 </use>
             </ptrcalc>
             <store kind="STORE">
-                <src kind="CONST" value="3"/>
+                <src kind="CONST" value="0"/>
                 <dst kind="TEMP" id="124" type="ptr"/>
                 <use>
                     <temp id="124"/>
@@ -60,7 +78,7 @@
             <ptrcalc kind="PTR_CALC">
                 <dst kind="TEMP" id="125" type="ptr"/>
                 <ptr kind="TEMP" id="100" type="ptr"/>
-                <offset kind="CONST" value="12"/>
+                <offset kind="CONST" value="16"/>
                 <def>
                     <temp id="125"/>
                 </def>
@@ -69,7 +87,7 @@
                 </use>
             </ptrcalc>
             <store kind="STORE">
-                <src kind="CONST" value="0"/>
+                <src kind="CONST" value="5"/>
                 <dst kind="TEMP" id="125" type="ptr"/>
                 <use>
                     <temp id="125"/>
@@ -78,7 +96,7 @@
             <ptrcalc kind="PTR_CALC">
                 <dst kind="TEMP" id="126" type="ptr"/>
                 <ptr kind="TEMP" id="100" type="ptr"/>
-                <offset kind="CONST" value="16"/>
+                <offset kind="CONST" value="20"/>
                 <def>
                     <temp id="126"/>
                 </def>
@@ -87,7 +105,7 @@
                 </use>
             </ptrcalc>
             <store kind="STORE">
-                <src kind="CONST" value="5"/>
+                <src kind="CONST" value="9"/>
                 <dst kind="TEMP" id="126" type="ptr"/>
                 <use>
                     <temp id="126"/>
@@ -96,7 +114,7 @@
             <ptrcalc kind="PTR_CALC">
                 <dst kind="TEMP" id="127" type="ptr"/>
                 <ptr kind="TEMP" id="100" type="ptr"/>
-                <offset kind="CONST" value="20"/>
+                <offset kind="CONST" value="24"/>
                 <def>
                     <temp id="127"/>
                 </def>
@@ -105,7 +123,7 @@
                 </use>
             </ptrcalc>
             <store kind="STORE">
-                <src kind="CONST" value="9"/>
+                <src kind="CONST" value="1"/>
                 <dst kind="TEMP" id="127" type="ptr"/>
                 <use>
                     <temp id="127"/>
@@ -114,27 +132,9 @@
             <ptrcalc kind="PTR_CALC">
                 <dst kind="TEMP" id="128" type="ptr"/>
                 <ptr kind="TEMP" id="100" type="ptr"/>
-                <offset kind="CONST" value="24"/>
-                <def>
-                    <temp id="128"/>
-                </def>
-                <use>
-                    <temp id="100"/>
-                </use>
-            </ptrcalc>
-            <store kind="STORE">
-                <src kind="CONST" value="1"/>
-                <dst kind="TEMP" id="128" type="ptr"/>
-                <use>
-                    <temp id="128"/>
-                </use>
-            </store>
-            <ptrcalc kind="PTR_CALC">
-                <dst kind="TEMP" id="129" type="ptr"/>
-                <ptr kind="TEMP" id="100" type="ptr"/>
                 <offset kind="CONST" value="28"/>
                 <def>
-                    <temp id="129"/>
+                    <temp id="128"/>
                 </def>
                 <use>
                     <temp id="100"/>
@@ -142,9 +142,9 @@
             </ptrcalc>
             <store kind="STORE">
                 <src kind="CONST" value="2"/>
-                <dst kind="TEMP" id="129" type="ptr"/>
+                <dst kind="TEMP" id="128" type="ptr"/>
                 <use>
-                    <temp id="129"/>
+                    <temp id="128"/>
                 </use>
             </store>
             <move kind="MOVE" dst="101" temp_type="ptr">
@@ -172,11 +172,11 @@
                 </def>
             </moveextcall>
             <ptrcalc kind="PTR_CALC">
-                <dst kind="TEMP" id="131" type="ptr"/>
+                <dst kind="TEMP" id="129" type="ptr"/>
                 <ptr kind="TEMP" id="104" type="ptr"/>
                 <offset kind="CONST" value="4"/>
                 <def>
-                    <temp id="131"/>
+                    <temp id="129"/>
                 </def>
                 <use>
                     <temp id="104"/>
@@ -184,9 +184,9 @@
             </ptrcalc>
             <store kind="STORE">
                 <src kind="NAME" name="b1^bubbleSort"/>
-                <dst kind="TEMP" id="131" type="ptr"/>
+                <dst kind="TEMP" id="129" type="ptr"/>
                 <use>
-                    <temp id="131"/>
+                    <temp id="129"/>
                 </use>
             </store>
             <move kind="MOVE" dst="101" temp_type="ptr">
@@ -199,23 +199,23 @@
                 </use>
             </move>
             <ptrcalc kind="PTR_CALC">
-                <dst kind="TEMP" id="132" type="ptr"/>
+                <dst kind="TEMP" id="130" type="ptr"/>
                 <ptr kind="TEMP" id="101" type="ptr"/>
                 <offset kind="CONST" value="4"/>
                 <def>
-                    <temp id="132"/>
+                    <temp id="130"/>
                 </def>
                 <use>
                     <temp id="101"/>
                 </use>
             </ptrcalc>
             <load kind="LOAD" dst="110" temp_type="ptr">
-                <src kind="TEMP" id="132" type="ptr"/>
+                <src kind="TEMP" id="130" type="ptr"/>
                 <def>
                     <temp id="110"/>
                 </def>
                 <use>
-                    <temp id="132"/>
+                    <temp id="130"/>
                 </use>
             </load>
             <move kind="MOVE" dst="113" temp_type="ptr">
@@ -268,10 +268,10 @@
                     </arg>
                 </args>
                 <use>
-                    <temp id="105"/>
+                    <temp id="112"/>
                     <temp id="111"/>
                     <temp id="113"/>
-                    <temp id="112"/>
+                    <temp id="105"/>
                 </use>
             </call>
             <label kind="LABEL" name="102"/>
@@ -297,8 +297,8 @@
                 <left kind="TEMP" id="115" type="int"/>
                 <right kind="TEMP" id="106" type="int"/>
                 <use>
-                    <temp id="106"/>
                     <temp id="115"/>
+                    <temp id="106"/>
                 </use>
             </cjump>
             <label kind="LABEL" name="103"/>
@@ -345,45 +345,45 @@
                 </args>
             </extcall>
             <label kind="LABEL" name="107"/>
-            <movebinop kind="MOVE_BINOP" dst="135" temp_type="int" op="+">
+            <movebinop kind="MOVE_BINOP" dst="131" temp_type="int" op="+">
                 <left kind="TEMP" id="102" type="int"/>
                 <right kind="CONST" value="1"/>
                 <def>
-                    <temp id="135"/>
+                    <temp id="131"/>
                 </def>
                 <use>
                     <temp id="102"/>
                 </use>
             </movebinop>
-            <movebinop kind="MOVE_BINOP" dst="136" temp_type="int" op="*">
-                <left kind="TEMP" id="135" type="int"/>
+            <movebinop kind="MOVE_BINOP" dst="132" temp_type="int" op="*">
+                <left kind="TEMP" id="131" type="int"/>
                 <right kind="CONST" value="4"/>
                 <def>
-                    <temp id="136"/>
+                    <temp id="132"/>
                 </def>
                 <use>
-                    <temp id="135"/>
+                    <temp id="131"/>
                 </use>
             </movebinop>
             <ptrcalc kind="PTR_CALC">
-                <dst kind="TEMP" id="137" type="ptr"/>
+                <dst kind="TEMP" id="133" type="ptr"/>
                 <ptr kind="TEMP" id="117" type="ptr"/>
-                <offset kind="TEMP" id="136" type="int"/>
+                <offset kind="TEMP" id="132" type="int"/>
                 <def>
-                    <temp id="137"/>
+                    <temp id="133"/>
                 </def>
                 <use>
                     <temp id="117"/>
-                    <temp id="136"/>
+                    <temp id="132"/>
                 </use>
             </ptrcalc>
             <load kind="LOAD" dst="118" temp_type="int">
-                <src kind="TEMP" id="137" type="ptr"/>
+                <src kind="TEMP" id="133" type="ptr"/>
                 <def>
                     <temp id="118"/>
                 </def>
                 <use>
-                    <temp id="137"/>
+                    <temp id="133"/>
                 </use>
             </load>
             <extcall kind="EXTCALL" name="putint">
@@ -427,7 +427,7 @@
             </return>
         </block>
     </funcdecl>
-    <funcdecl kind="FUNCDECL" name="b1^bubbleSort" last_label_num="133" last_temp_num="165">
+    <funcdecl kind="FUNCDECL" name="b1^bubbleSort" last_label_num="133" last_temp_num="158">
         <params>
             <param temp="101"/>
             <param temp="102"/>
@@ -518,45 +518,45 @@
                 </args>
             </extcall>
             <label kind="LABEL" name="112"/>
-            <movebinop kind="MOVE_BINOP" dst="135" temp_type="int" op="+">
+            <movebinop kind="MOVE_BINOP" dst="134" temp_type="int" op="+">
                 <left kind="TEMP" id="100" type="int"/>
                 <right kind="CONST" value="1"/>
                 <def>
-                    <temp id="135"/>
+                    <temp id="134"/>
                 </def>
                 <use>
                     <temp id="100"/>
                 </use>
             </movebinop>
-            <movebinop kind="MOVE_BINOP" dst="136" temp_type="int" op="*">
-                <left kind="TEMP" id="135" type="int"/>
+            <movebinop kind="MOVE_BINOP" dst="135" temp_type="int" op="*">
+                <left kind="TEMP" id="134" type="int"/>
                 <right kind="CONST" value="4"/>
                 <def>
-                    <temp id="136"/>
+                    <temp id="135"/>
                 </def>
                 <use>
-                    <temp id="135"/>
+                    <temp id="134"/>
                 </use>
             </movebinop>
             <ptrcalc kind="PTR_CALC">
-                <dst kind="TEMP" id="137" type="ptr"/>
+                <dst kind="TEMP" id="136" type="ptr"/>
                 <ptr kind="TEMP" id="115" type="ptr"/>
-                <offset kind="TEMP" id="136" type="int"/>
+                <offset kind="TEMP" id="135" type="int"/>
                 <def>
-                    <temp id="137"/>
+                    <temp id="136"/>
                 </def>
                 <use>
                     <temp id="115"/>
-                    <temp id="136"/>
+                    <temp id="135"/>
                 </use>
             </ptrcalc>
             <load kind="LOAD" dst="118" temp_type="int">
-                <src kind="TEMP" id="137" type="ptr"/>
+                <src kind="TEMP" id="136" type="ptr"/>
                 <def>
                     <temp id="118"/>
                 </def>
                 <use>
-                    <temp id="137"/>
+                    <temp id="136"/>
                 </use>
             </load>
             <movebinop kind="MOVE_BINOP" dst="106" temp_type="int" op="+">
@@ -612,53 +612,53 @@
                 </args>
             </extcall>
             <label kind="LABEL" name="115"/>
-            <movebinop kind="MOVE_BINOP" dst="139" temp_type="int" op="+">
+            <movebinop kind="MOVE_BINOP" dst="137" temp_type="int" op="+">
                 <left kind="TEMP" id="106" type="int"/>
                 <right kind="CONST" value="1"/>
                 <def>
-                    <temp id="139"/>
+                    <temp id="137"/>
                 </def>
                 <use>
                     <temp id="106"/>
                 </use>
             </movebinop>
-            <movebinop kind="MOVE_BINOP" dst="140" temp_type="int" op="*">
-                <left kind="TEMP" id="139" type="int"/>
+            <movebinop kind="MOVE_BINOP" dst="138" temp_type="int" op="*">
+                <left kind="TEMP" id="137" type="int"/>
                 <right kind="CONST" value="4"/>
+                <def>
+                    <temp id="138"/>
+                </def>
+                <use>
+                    <temp id="137"/>
+                </use>
+            </movebinop>
+            <ptrcalc kind="PTR_CALC">
+                <dst kind="TEMP" id="139" type="ptr"/>
+                <ptr kind="TEMP" id="117" type="ptr"/>
+                <offset kind="TEMP" id="138" type="int"/>
+                <def>
+                    <temp id="139"/>
+                </def>
+                <use>
+                    <temp id="117"/>
+                    <temp id="138"/>
+                </use>
+            </ptrcalc>
+            <load kind="LOAD" dst="140" temp_type="int">
+                <src kind="TEMP" id="139" type="ptr"/>
                 <def>
                     <temp id="140"/>
                 </def>
                 <use>
                     <temp id="139"/>
                 </use>
-            </movebinop>
-            <ptrcalc kind="PTR_CALC">
-                <dst kind="TEMP" id="141" type="ptr"/>
-                <ptr kind="TEMP" id="117" type="ptr"/>
-                <offset kind="TEMP" id="140" type="int"/>
-                <def>
-                    <temp id="141"/>
-                </def>
-                <use>
-                    <temp id="117"/>
-                    <temp id="140"/>
-                </use>
-            </ptrcalc>
-            <load kind="LOAD" dst="142" temp_type="int">
-                <src kind="TEMP" id="141" type="ptr"/>
-                <def>
-                    <temp id="142"/>
-                </def>
-                <use>
-                    <temp id="141"/>
-                </use>
             </load>
             <cjump kind="CJUMP" relop="&gt;" true="130" false="131">
                 <left kind="TEMP" id="118" type="int"/>
-                <right kind="TEMP" id="142" type="int"/>
+                <right kind="TEMP" id="140" type="int"/>
                 <use>
                     <temp id="118"/>
-                    <temp id="142"/>
+                    <temp id="140"/>
                 </use>
             </cjump>
             <label kind="LABEL" name="130"/>
@@ -706,63 +706,63 @@
             </extcall>
             <label kind="LABEL" name="120"/>
             <ptrcalc kind="PTR_CALC">
-                <dst kind="TEMP" id="144" type="ptr"/>
+                <dst kind="TEMP" id="141" type="ptr"/>
                 <ptr kind="TEMP" id="101" type="ptr"/>
                 <offset kind="CONST" value="0"/>
                 <def>
-                    <temp id="144"/>
+                    <temp id="141"/>
                 </def>
                 <use>
                     <temp id="101"/>
                 </use>
             </ptrcalc>
-            <movebinop kind="MOVE_BINOP" dst="145" temp_type="int" op="+">
+            <movebinop kind="MOVE_BINOP" dst="142" temp_type="int" op="+">
                 <left kind="TEMP" id="100" type="int"/>
                 <right kind="CONST" value="1"/>
                 <def>
-                    <temp id="145"/>
+                    <temp id="142"/>
                 </def>
                 <use>
                     <temp id="100"/>
                 </use>
             </movebinop>
-            <movebinop kind="MOVE_BINOP" dst="146" temp_type="int" op="*">
-                <left kind="TEMP" id="145" type="int"/>
+            <movebinop kind="MOVE_BINOP" dst="143" temp_type="int" op="*">
+                <left kind="TEMP" id="142" type="int"/>
                 <right kind="CONST" value="4"/>
                 <def>
-                    <temp id="146"/>
+                    <temp id="143"/>
                 </def>
                 <use>
-                    <temp id="145"/>
+                    <temp id="142"/>
                 </use>
             </movebinop>
             <ptrcalc kind="PTR_CALC">
-                <dst kind="TEMP" id="147" type="ptr"/>
+                <dst kind="TEMP" id="144" type="ptr"/>
                 <ptr kind="TEMP" id="120" type="ptr"/>
-                <offset kind="TEMP" id="146" type="int"/>
+                <offset kind="TEMP" id="143" type="int"/>
                 <def>
-                    <temp id="147"/>
+                    <temp id="144"/>
                 </def>
                 <use>
                     <temp id="120"/>
-                    <temp id="146"/>
+                    <temp id="143"/>
                 </use>
             </ptrcalc>
-            <load kind="LOAD" dst="148" temp_type="int">
-                <src kind="TEMP" id="147" type="ptr"/>
+            <load kind="LOAD" dst="145" temp_type="int">
+                <src kind="TEMP" id="144" type="ptr"/>
                 <def>
-                    <temp id="148"/>
+                    <temp id="145"/>
                 </def>
                 <use>
-                    <temp id="147"/>
+                    <temp id="144"/>
                 </use>
             </load>
             <store kind="STORE">
-                <src kind="TEMP" id="148" type="int"/>
-                <dst kind="TEMP" id="144" type="ptr"/>
+                <src kind="TEMP" id="145" type="int"/>
+                <dst kind="TEMP" id="141" type="ptr"/>
                 <use>
-                    <temp id="144"/>
-                    <temp id="148"/>
+                    <temp id="141"/>
+                    <temp id="145"/>
                 </use>
             </store>
             <move kind="MOVE" dst="122" temp_type="ptr">
@@ -861,85 +861,85 @@
                 </args>
             </extcall>
             <label kind="LABEL" name="126"/>
-            <movebinop kind="MOVE_BINOP" dst="151" temp_type="int" op="+">
+            <movebinop kind="MOVE_BINOP" dst="146" temp_type="int" op="+">
                 <left kind="TEMP" id="100" type="int"/>
                 <right kind="CONST" value="1"/>
                 <def>
-                    <temp id="151"/>
+                    <temp id="146"/>
                 </def>
                 <use>
                     <temp id="100"/>
                 </use>
             </movebinop>
-            <movebinop kind="MOVE_BINOP" dst="152" temp_type="int" op="*">
-                <left kind="TEMP" id="151" type="int"/>
+            <movebinop kind="MOVE_BINOP" dst="147" temp_type="int" op="*">
+                <left kind="TEMP" id="146" type="int"/>
                 <right kind="CONST" value="4"/>
+                <def>
+                    <temp id="147"/>
+                </def>
+                <use>
+                    <temp id="146"/>
+                </use>
+            </movebinop>
+            <ptrcalc kind="PTR_CALC">
+                <dst kind="TEMP" id="148" type="ptr"/>
+                <ptr kind="TEMP" id="122" type="ptr"/>
+                <offset kind="TEMP" id="147" type="int"/>
+                <def>
+                    <temp id="148"/>
+                </def>
+                <use>
+                    <temp id="122"/>
+                    <temp id="147"/>
+                </use>
+            </ptrcalc>
+            <movebinop kind="MOVE_BINOP" dst="149" temp_type="int" op="+">
+                <left kind="TEMP" id="110" type="int"/>
+                <right kind="CONST" value="1"/>
+                <def>
+                    <temp id="149"/>
+                </def>
+                <use>
+                    <temp id="110"/>
+                </use>
+            </movebinop>
+            <movebinop kind="MOVE_BINOP" dst="150" temp_type="int" op="*">
+                <left kind="TEMP" id="149" type="int"/>
+                <right kind="CONST" value="4"/>
+                <def>
+                    <temp id="150"/>
+                </def>
+                <use>
+                    <temp id="149"/>
+                </use>
+            </movebinop>
+            <ptrcalc kind="PTR_CALC">
+                <dst kind="TEMP" id="151" type="ptr"/>
+                <ptr kind="TEMP" id="124" type="ptr"/>
+                <offset kind="TEMP" id="150" type="int"/>
+                <def>
+                    <temp id="151"/>
+                </def>
+                <use>
+                    <temp id="124"/>
+                    <temp id="150"/>
+                </use>
+            </ptrcalc>
+            <load kind="LOAD" dst="152" temp_type="int">
+                <src kind="TEMP" id="151" type="ptr"/>
                 <def>
                     <temp id="152"/>
                 </def>
                 <use>
                     <temp id="151"/>
                 </use>
-            </movebinop>
-            <ptrcalc kind="PTR_CALC">
-                <dst kind="TEMP" id="153" type="ptr"/>
-                <ptr kind="TEMP" id="122" type="ptr"/>
-                <offset kind="TEMP" id="152" type="int"/>
-                <def>
-                    <temp id="153"/>
-                </def>
-                <use>
-                    <temp id="122"/>
-                    <temp id="152"/>
-                </use>
-            </ptrcalc>
-            <movebinop kind="MOVE_BINOP" dst="154" temp_type="int" op="+">
-                <left kind="TEMP" id="110" type="int"/>
-                <right kind="CONST" value="1"/>
-                <def>
-                    <temp id="154"/>
-                </def>
-                <use>
-                    <temp id="110"/>
-                </use>
-            </movebinop>
-            <movebinop kind="MOVE_BINOP" dst="155" temp_type="int" op="*">
-                <left kind="TEMP" id="154" type="int"/>
-                <right kind="CONST" value="4"/>
-                <def>
-                    <temp id="155"/>
-                </def>
-                <use>
-                    <temp id="154"/>
-                </use>
-            </movebinop>
-            <ptrcalc kind="PTR_CALC">
-                <dst kind="TEMP" id="156" type="ptr"/>
-                <ptr kind="TEMP" id="124" type="ptr"/>
-                <offset kind="TEMP" id="155" type="int"/>
-                <def>
-                    <temp id="156"/>
-                </def>
-                <use>
-                    <temp id="124"/>
-                    <temp id="155"/>
-                </use>
-            </ptrcalc>
-            <load kind="LOAD" dst="157" temp_type="int">
-                <src kind="TEMP" id="156" type="ptr"/>
-                <def>
-                    <temp id="157"/>
-                </def>
-                <use>
-                    <temp id="156"/>
-                </use>
             </load>
             <store kind="STORE">
-                <src kind="TEMP" id="157" type="int"/>
-                <dst kind="TEMP" id="153" type="ptr"/>
+                <src kind="TEMP" id="152" type="int"/>
+                <dst kind="TEMP" id="148" type="ptr"/>
                 <use>
-                    <temp id="153"/>
-                    <temp id="157"/>
+                    <temp id="148"/>
+                    <temp id="152"/>
                 </use>
             </store>
             <movebinop kind="MOVE_BINOP" dst="112" temp_type="int" op="+">
@@ -995,64 +995,64 @@
                 </args>
             </extcall>
             <label kind="LABEL" name="129"/>
-            <movebinop kind="MOVE_BINOP" dst="159" temp_type="int" op="+">
+            <movebinop kind="MOVE_BINOP" dst="153" temp_type="int" op="+">
                 <left kind="TEMP" id="112" type="int"/>
                 <right kind="CONST" value="1"/>
                 <def>
-                    <temp id="159"/>
+                    <temp id="153"/>
                 </def>
                 <use>
                     <temp id="112"/>
                 </use>
             </movebinop>
-            <movebinop kind="MOVE_BINOP" dst="160" temp_type="int" op="*">
-                <left kind="TEMP" id="159" type="int"/>
+            <movebinop kind="MOVE_BINOP" dst="154" temp_type="int" op="*">
+                <left kind="TEMP" id="153" type="int"/>
                 <right kind="CONST" value="4"/>
                 <def>
-                    <temp id="160"/>
+                    <temp id="154"/>
                 </def>
                 <use>
-                    <temp id="159"/>
+                    <temp id="153"/>
                 </use>
             </movebinop>
             <ptrcalc kind="PTR_CALC">
-                <dst kind="TEMP" id="161" type="ptr"/>
+                <dst kind="TEMP" id="155" type="ptr"/>
                 <ptr kind="TEMP" id="126" type="ptr"/>
-                <offset kind="TEMP" id="160" type="int"/>
+                <offset kind="TEMP" id="154" type="int"/>
                 <def>
-                    <temp id="161"/>
+                    <temp id="155"/>
                 </def>
                 <use>
                     <temp id="126"/>
-                    <temp id="160"/>
+                    <temp id="154"/>
                 </use>
             </ptrcalc>
             <ptrcalc kind="PTR_CALC">
-                <dst kind="TEMP" id="162" type="ptr"/>
+                <dst kind="TEMP" id="156" type="ptr"/>
                 <ptr kind="TEMP" id="101" type="ptr"/>
                 <offset kind="CONST" value="0"/>
                 <def>
-                    <temp id="162"/>
+                    <temp id="156"/>
                 </def>
                 <use>
                     <temp id="101"/>
                 </use>
             </ptrcalc>
-            <load kind="LOAD" dst="163" temp_type="int">
-                <src kind="TEMP" id="162" type="ptr"/>
+            <load kind="LOAD" dst="157" temp_type="int">
+                <src kind="TEMP" id="156" type="ptr"/>
                 <def>
-                    <temp id="163"/>
+                    <temp id="157"/>
                 </def>
                 <use>
-                    <temp id="162"/>
+                    <temp id="156"/>
                 </use>
             </load>
             <store kind="STORE">
-                <src kind="TEMP" id="163" type="int"/>
-                <dst kind="TEMP" id="161" type="ptr"/>
+                <src kind="TEMP" id="157" type="int"/>
+                <dst kind="TEMP" id="155" type="ptr"/>
                 <use>
-                    <temp id="161"/>
-                    <temp id="163"/>
+                    <temp id="155"/>
+                    <temp id="157"/>
                 </use>
             </store>
             <jump kind="JUMP" target="132"/>
@@ -1071,23 +1071,23 @@
             <jump kind="JUMP" target="107"/>
             <label kind="LABEL" name="109"/>
             <ptrcalc kind="PTR_CALC">
-                <dst kind="TEMP" id="164" type="ptr"/>
+                <dst kind="TEMP" id="158" type="ptr"/>
                 <ptr kind="TEMP" id="101" type="ptr"/>
                 <offset kind="CONST" value="4"/>
                 <def>
-                    <temp id="164"/>
+                    <temp id="158"/>
                 </def>
                 <use>
                     <temp id="101"/>
                 </use>
             </ptrcalc>
             <load kind="LOAD" dst="127" temp_type="ptr">
-                <src kind="TEMP" id="164" type="ptr"/>
+                <src kind="TEMP" id="158" type="ptr"/>
                 <def>
                     <temp id="127"/>
                 </def>
                 <use>
-                    <temp id="164"/>
+                    <temp id="158"/>
                 </use>
             </load>
             <move kind="MOVE" dst="131" temp_type="ptr">
@@ -1141,15 +1141,21 @@
                             <value kind="TEMP" id="128" type="int"/>
                         </arg>
                     </args>
+                    <use>
+                        <temp id="128"/>
+                        <temp id="130"/>
+                        <temp id="129"/>
+                        <temp id="131"/>
+                    </use>
                 </call>
                 <def>
                     <temp id="132"/>
                 </def>
                 <use>
                     <temp id="128"/>
+                    <temp id="130"/>
                     <temp id="129"/>
                     <temp id="131"/>
-                    <temp id="130"/>
                 </use>
             </movecall>
             <return kind="RETURN">

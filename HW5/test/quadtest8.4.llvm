@@ -1,0 +1,111 @@
+; Generated LLVM IR from Quad representation
+
+declare i8* @malloc(i32)
+declare void @free(i8*)
+
+declare i32 @printf(i8*, ...)
+declare i32 @__isoc99_scanf(i8*, ...)
+
+declare void @exit(i64)
+
+declare i64 @getint()
+declare i64 @getch()
+declare i64 @getarray(i64*)
+declare void @putint(i64)
+declare void @putch(i64)
+declare void @putarray(i64, i64*)
+
+define i32 @main() {
+entry:
+  br label %label_100
+
+label_100:
+  %t10000 = add i64 0, 0
+  %t10100 = add i64 0, 0
+  %t0 = mul i64 16, 2
+  %t1 = trunc i64 %t0 to i32
+  %t2 = call i8* @malloc(i32 %t1)
+  %t10300 = ptrtoint i8* %t2 to i64
+  %t3 = mul i64 8, 2
+  %t11200 = add i64 %t10300, %t3
+  %t4 = ptrtoint i64 (i64)* @A$f to i64
+  %t5 = inttoptr i64 %t11200 to i64*
+  store i64 %t4, i64* %t5
+  %t10001 = add i64 %t10300, 0
+  %t6 = mul i64 0, 2
+  %t11300 = add i64 %t10001, %t6
+  %t7 = inttoptr i64 %t11300 to i64*
+  store i64 4, i64* %t7
+  %t8 = mul i64 16, 2
+  %t9 = trunc i64 %t8 to i32
+  %t10 = call i8* @malloc(i32 %t9)
+  %t10400 = ptrtoint i8* %t10 to i64
+  %t11 = mul i64 8, 2
+  %t11400 = add i64 %t10400, %t11
+  %t12 = ptrtoint i64 (i64)* @B$f to i64
+  %t13 = inttoptr i64 %t11400 to i64*
+  store i64 %t12, i64* %t13
+  %t14 = mul i64 12, 2
+  %t11500 = add i64 %t10400, %t14
+  %t15 = ptrtoint i64 (i64)* @B$g to i64
+  %t16 = inttoptr i64 %t11500 to i64*
+  store i64 %t15, i64* %t16
+  %t10101 = add i64 %t10400, 0
+  %t17 = mul i64 4, 2
+  %t11600 = add i64 %t10101, %t17
+  %t18 = inttoptr i64 %t11600 to i64*
+  store i64 2, i64* %t18
+  %t10002 = add i64 %t10101, 0
+  %t19 = mul i64 8, 2
+  %t11700 = add i64 %t10002, %t19
+  %t20 = inttoptr i64 %t11700 to i64*
+  %t10700 = load i64, i64* %t20
+  %t21 = inttoptr i64 %t10700 to i64(i64)*
+  %t10800 = call i64 %t21(i64 %t10002)
+  %t22 = mul i64 4, 2
+  %t11800 = add i64 %t10101, %t22
+  %t23 = inttoptr i64 %t11800 to i64*
+  %t11900 = load i64, i64* %t23
+  %t10900 = add i64 %t10800, %t11900
+  call void @putint(i64 %t10900)
+  call void @putch(i64 10)
+  %t24 = trunc i64 0 to i32
+  ret i32 %t24
+
+  ; Default return
+  ret i32 0
+}
+
+define i64 @A$f(i64 %t100) {
+entry:
+  br label %label_100
+
+label_100:
+  ret i64 100
+
+  ; Default return
+  ret i64 0
+}
+
+define i64 @B$f(i64 %t100) {
+entry:
+  br label %label_100
+
+label_100:
+  ret i64 200
+
+  ; Default return
+  ret i64 0
+}
+
+define i64 @B$g(i64 %t100) {
+entry:
+  br label %label_100
+
+label_100:
+  ret i64 300
+
+  ; Default return
+  ret i64 0
+}
+

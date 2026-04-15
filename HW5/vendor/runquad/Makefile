@@ -29,6 +29,18 @@ ifeq ($(LLVMLINK),)
 endif
 
 ifeq ($(LLVMLINK),llvm-link-14)
+	CLANG := $(shell if command -v clang-14 >/dev/null 2>&1; then echo clang-14; fi)
+	ifeq ($(CLANG),)
+		$(error "llvm-link-14 is selected but clang-14 is not found in PATH")
+	endif
+else ifeq ($(LLVMLINK),llvm-link)
+	CLANG := $(shell if command -v clang >/dev/null 2>&1; then echo clang; fi)
+	ifeq ($(CLANG),)
+		$(error "llvm-link is selected but clang is not found in PATH")
+	endif
+endif
+
+ifeq ($(LLVMLINK),llvm-link-14)
 	LLI = lli-14
 else ifeq ($(LLVMLINK),llvm-link)
 	LLI = lli
@@ -38,7 +50,7 @@ endif
 
 $(CURDIR)/libsysy64.ll: $(CURDIR)/libsysy64.c
 	@echo "Compiling libsysy64.c to LLVM IR..."
-	@clang -emit-llvm -c -fno-builtin $(CURDIR)/libsysy64.c -o $(CURDIR)/libsysy64.ll
+	@$(CLANG) -emit-llvm -c -fno-builtin $(CURDIR)/libsysy64.c -o $(CURDIR)/libsysy64.ll
 
 run: $(EXE) $(CURDIR)/libsysy64.ll
 	cd $(CURDIR)/../../test && \
