@@ -129,6 +129,7 @@ public:
      Label *continue_label; //the continue label for the current while loop
      Label *break_label;  //the break label for the current while loop
      string class_var_class_name; //the class name of the object in ClassVar (for looking up var offset)
+     int lvalue;
 
      ~ASTToTreeVisitor() {
           delete semant_map;
@@ -155,6 +156,7 @@ public:
           continue_label = nullptr;
           break_label = nullptr;
           class_var_class_name.clear();
+          lvalue=0;
      }
 
      tree::Tree* getTree() { return visit_tree_result; } //return the tree from a single visit (program returns a single tree)

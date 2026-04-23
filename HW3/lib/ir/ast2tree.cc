@@ -158,6 +158,34 @@ static Class_table *generate_class_table_from_program_ast(fdmj::Program *prog) {
     return ct;
 }
 
+static tree::Eseq *checked_int_assigned(Temp_map *tm, tree::Exp *var,tree::TempExp *shadow_temp)
+{
+    vector<tree::Stm*> *sl = new vector<tree::Stm*>();
+
+    tree::TempExp *shadow_temp=tm->get_var_temp
+
+    tree::Label *lf=tm->newlabel();
+    tree::Label *lok=tm->newlabel();
+    
+    vector<tree::Exp*> *exit_args = new vector<tree::Exp*>();
+    exit_args->push_back(new tree::Const(-101));
+
+    sl->push_back(new tree::Cjump("==",shadow_temp,new tree::Const(1),lok,lf));
+    sl->push_back(new tree::LabelStm(lf));
+    sl->push_back(new tree::ExpStm(new tree::ExtCall(tree::Type::INT, "exit", exit_args)));
+    sl->push_back(new tree::LabelStm(lok));
+
+    return new tree::Eseq(tree::Type::INT, to_seq(sl), var);
+}
+/*
+if (shadow_temp == 1) goto lok
+goto lf
+lf:
+  exit(-1)
+lok:
+  // 继续
+*/
+
 static tree::Exp *checked_array_index_addr(Temp_map *tm, tree::Exp *arr, tree::Exp *idx) {
     int int_len = Compiler_Config::get("int_length");
     vector<tree::Stm*> *sl = new vector<tree::Stm*>();
@@ -215,6 +243,12 @@ static void append_vardecls_init(
             if (vt == tree::Type::PTR) {
                 sl->push_back(new tree::Move(dst, new tree::Const(0)));
             }
+            else if(vt==tree::Type::INT)
+            {
+                tree::Temp *shadow_temp_t=mvt->get_var_temp("_^shadow^_"+vd->id->id);
+                tree::TempExp *shadow_temp= new tree::TempExp(tree::Type::INT,shadow_temp_t);
+                sl->push_back(new tree::Move(shadow_temp, new tree::Const(0)));
+            }
             continue;
         }
 
@@ -222,6 +256,12 @@ static void append_vardecls_init(
             fdmj::IntExp *ie = get<fdmj::IntExp*>(vd->init);
             int v = (ie == nullptr) ? 0 : ie->val;
             sl->push_back(new tree::Move(dst, new tree::Const(v)));
+            if(vt==tree::Type::INT)
+            {
+                tree::Temp *shadow_temp_t=mvt->get_var_temp("_^shadow^_"+vd->id->id);
+                tree::TempExp *shadow_temp= new tree::TempExp(tree::Type::INT,shadow_temp_t);
+                sl->push_back(new tree::Move(shadow_temp, new tree::Const(1)));
+            }
             continue;
         }
 
@@ -321,6 +361,11 @@ Method_var_table* generate_method_var_table(string class_name, string method_nam
             // local vars override formal vars with same name
             (*(mvt->var_temp_map))[vn] = tm->newtemp();
             (*(mvt->var_type_map))[vn] = t;
+            if(t==tree::Type::INT)
+            {
+                (*(mvt->var_temp_map))["_^shadow^_" + vn]=tm->newtemp();
+                (*(mvt->var_type_map))["_^shadow^_" + vn]=tree::Type::INT;
+            }
         }
         delete vl;
     }
@@ -660,10 +705,14 @@ void ASTToTreeVisitor::visit(fdmj::While* node) {
 }
 
 void ASTToTreeVisitor::visit(fdmj::Assign* node) {
-    node->left->accept(*this);
-    tree::Exp *dst = visit_exp_result->unEx(method_temp_map)->exp;
     node->exp->accept(*this);
     tree::Exp *src = visit_exp_result->unEx(method_temp_map)->exp;
+    lvalue=1;
+    node->left->accept(*this);
+    lvalue=0;
+    tree::Exp *dst = visit_exp_result->unEx(method_temp_map)->exp;
+    
+
     visit_tree_result = new tree::Move(dst, src);
 }
 
@@ -1022,7 +1071,11 @@ void ASTToTreeVisitor::visit(fdmj::IdExp* node) {
         (*(method_var_table->var_temp_map))[node->id] = t;
         (*(method_var_table->var_type_map))[node->id] = ty;
     }
-    visit_exp_result = new Tr_ex(new tree::TempExp(ty, t));
+    if(lvalue==0&&ty==tree::Type::INT)
+    {
+        visit_exp_result=new Tr_ex(checked_int_assigned(method_temp_map,new tree::TempExp(ty,t),new tree::TempExp(tree::Type::INT,method_var_table->get_var_temp("_^shadow^_"+node->id))));
+    }
+    else visit_exp_result = new Tr_ex(new tree::TempExp(ty, t));
 }
 
 void ASTToTreeVisitor::visit(fdmj::OpExp* node) {
@@ -1034,7 +1087,7 @@ void ASTToTreeVisitor::visit(fdmj::IntExp* node) {
     visit_exp_result = new Tr_ex(new tree::Const(node->val));
 }
 
-//this is only for a test
+//this is only for static tree::Exp *checked_array_index_addr(Temp_map *tm, tree::Exp *arr, tree::Exp *idx) test
 tree::Program* generate_a_testIR_ast2tree() {
     Temp_map *tm = new Temp_map();
     tree::Label *entry_label = tm->newlabel();
