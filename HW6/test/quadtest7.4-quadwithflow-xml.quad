@@ -202,7 +202,7 @@
                 </return>
             </block>
         </funcdecl>
-        <funcdecl kind="FUNCDECL" name="A^f" last_label_num="100" last_temp_num="101">
+        <funcdecl kind="FUNCDECL" name="B^f" last_label_num="100" last_temp_num="101">
             <params>
                 <param temp="100"/>
             </params>
@@ -210,7 +210,7 @@
                 <label kind="LABEL" name="100"/>
             </block>
         </funcdecl>
-        <funcdecl kind="FUNCDECL" name="B^f" last_label_num="100" last_temp_num="101">
+        <funcdecl kind="FUNCDECL" name="A^f" last_label_num="100" last_temp_num="101">
             <params>
                 <param temp="100"/>
             </params>
@@ -232,9 +232,7 @@
                     <Item id="100"/>
                 </Block>
             </Dominators>
-            <ImmediateDominators>
-                <Block id="100" idom="-1"/>
-            </ImmediateDominators>
+            <ImmediateDominators/>
             <DominanceFrontier>
                 <Block id="100"/>
             </DominanceFrontier>
@@ -435,7 +433,7 @@
             </Block>
         </Liveness>
     </Function>
-    <Function name="A^f">
+    <Function name="B^f">
         <ControlFlow>
             <Predecessors>
                 <Block id="100"/>
@@ -448,9 +446,7 @@
                     <Item id="100"/>
                 </Block>
             </Dominators>
-            <ImmediateDominators>
-                <Block id="100" idom="-1"/>
-            </ImmediateDominators>
+            <ImmediateDominators/>
             <DominanceFrontier>
                 <Block id="100"/>
             </DominanceFrontier>
@@ -467,7 +463,7 @@
             </Block>
         </Liveness>
     </Function>
-    <Function name="B^f">
+    <Function name="A^f">
         <ControlFlow>
             <Predecessors>
                 <Block id="100"/>
@@ -480,9 +476,7 @@
                     <Item id="100"/>
                 </Block>
             </Dominators>
-            <ImmediateDominators>
-                <Block id="100" idom="-1"/>
-            </ImmediateDominators>
+            <ImmediateDominators/>
             <DominanceFrontier>
                 <Block id="100"/>
             </DominanceFrontier>

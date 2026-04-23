@@ -48,9 +48,7 @@
                     <Item id="100"/>
                 </Block>
             </Dominators>
-            <ImmediateDominators>
-                <Block id="100" idom="-1"/>
-            </ImmediateDominators>
+            <ImmediateDominators/>
             <DominanceFrontier>
                 <Block id="100"/>
             </DominanceFrontier>
