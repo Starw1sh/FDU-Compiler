@@ -5,6 +5,7 @@
 #include <queue>
 #include <algorithm>
 #include <map>
+#include <new>
 #include "quad.hh"
 #include "flowinfo.hh"
 
@@ -20,24 +21,39 @@ void DataFlowInfo::findAllVars() {
     allVars.clear();
     defs->clear();
     uses->clear();
-    if (!func || !func->quadblocklist) return;
-    for (auto block : *func->quadblocklist) {
-        if (!block || !block->quadlist) continue;
-        for (auto stm : *block->quadlist) {
-            if (!stm) continue;
-            // def/use 是 Temp* 集合
-            if (stm->def) {
-                for (auto t : *stm->def) {
-                    if (!t) continue;
-                    allVars.insert(t->num);
-                    (*defs)[t->num].insert({block, stm});
+
+    if (!func || !func->quadblocklist) {
+        return;
+    }
+
+    for (QuadBlock* block : *func->quadblocklist) {
+        if (!block || !block->quadlist) {
+            continue;
+        }
+        for (QuadStm* stmt : *block->quadlist) {
+            if (!stmt) {
+                continue;
+            }
+
+            if (stmt->def) {
+                for (Temp* t : *stmt->def) {
+                    if (!t) {
+                        continue;
+                    }
+                    int var = t->num;
+                    allVars.insert(var);
+                    (*defs)[var].insert({block, stmt});
                 }
             }
-            if (stm->use) {
-                for (auto t : *stm->use) {
-                    if (!t) continue;
-                    allVars.insert(t->num);
-                    (*uses)[t->num].insert({block, stm});
+
+            if (stmt->use) {
+                for (Temp* t : *stmt->use) {
+                    if (!t) {
+                        continue;
+                    }
+                    int var = t->num;
+                    allVars.insert(var);
+                    (*uses)[var].insert({block, stmt});
                 }
             }
         }
@@ -52,81 +68,97 @@ void DataFlowInfo::computeLiveness() {
     //FILE IN THE CODE HERE TO CALCULATE BOTH LIVE-IN AND LIVE-OUT SETS for all statements in the function,
     livein->clear();
     liveout->clear();
-    if (!func || !func->quadblocklist) return;
-    // 收集所有语句
-    vector<quad::QuadStm*> stmts;
-    map<quad::QuadStm*, set<quad::QuadStm*>> succs;
-    map<quad::QuadStm*, set<int>> defmap, usemap;
-    map<quad::QuadStm*, quad::QuadBlock*> stmt2block;
-    for (auto block : *func->quadblocklist) {
-        if (!block || !block->quadlist) continue;
-        for (size_t i = 0; i < block->quadlist->size(); ++i) {
-            quad::QuadStm* stm = block->quadlist->at(i);
-            if (!stm) continue;
-            stmts.push_back(stm);
-            stmt2block[stm] = block;
-            if (stm->def) {
-                set<int> defnums;
-                for (auto t : *stm->def) if (t) defnums.insert(t->num);
-                defmap[stm] = defnums;
-            }
-            if (stm->use) {
-                set<int> usenums;
-                for (auto t : *stm->use) if (t) usenums.insert(t->num);
-                usemap[stm] = usenums;
-            }
+
+    if (!func || !func->quadblocklist) {
+        return;
+    }
+
+    map<int, QuadBlock*> labelToBlock;
+    for (QuadBlock* block : *func->quadblocklist) {
+        if (block && block->entry_label) {
+            labelToBlock[block->entry_label->num] = block;
         }
     }
-    // 构建语句级后继关系
-    for (auto block : *func->quadblocklist) {
-        if (!block || !block->quadlist || block->quadlist->empty()) continue;
-        for (size_t i = 0; i < block->quadlist->size(); ++i) {
-            quad::QuadStm* stm = block->quadlist->at(i);
-            if (!stm) continue;
-            set<quad::QuadStm*> sset;
-            if (i + 1 < block->quadlist->size()) {
-                sset.insert(block->quadlist->at(i + 1));
-            } else {
-                // 最后一条语句，后继是本块所有出口块的第一条语句
-                if (block->exit_labels) {
-                    for (auto lbl : *block->exit_labels) {
-                        for (auto b2 : *func->quadblocklist) {
-                            if (b2 && b2->entry_label && lbl && b2->entry_label->num == lbl->num && b2->quadlist && !b2->quadlist->empty()) {
-                                sset.insert(b2->quadlist->at(0));
-                            }
-                        }
-                    }
-                }
+
+    // Initialize all statement live-in/live-out sets.
+    for (QuadBlock* block : *func->quadblocklist) {
+        if (!block || !block->quadlist) {
+            continue;
+        }
+        for (QuadStm* stmt : *block->quadlist) {
+            if (!stmt) {
+                continue;
             }
-            succs[stm] = sset;
+            (*livein)[stmt] = set<int>();
+            (*liveout)[stmt] = set<int>();
         }
     }
-    // 迭代求解
-    map<quad::QuadStm*, set<int>> in, out;
+
     bool changed = true;
     while (changed) {
         changed = false;
-        for (auto stm : stmts) {
-            set<int> old_in = in[stm], old_out = out[stm];
-            // out = 所有后继的 in
-            set<int> new_out;
-            for (auto s : succs[stm]) {
-                new_out.insert(in[s].begin(), in[s].end());
+
+        for (auto bIt = func->quadblocklist->rbegin(); bIt != func->quadblocklist->rend(); ++bIt) {
+            QuadBlock* block = *bIt;
+            if (!block || !block->quadlist) {
+                continue;
             }
-            out[stm] = new_out;
-            // in = use ∪ (out - def)
-            set<int> new_in = usemap[stm];
-            set<int> out_minus_def;
-            set_difference(out[stm].begin(), out[stm].end(), defmap[stm].begin(), defmap[stm].end(), inserter(out_minus_def, out_minus_def.begin()));
-            new_in.insert(out_minus_def.begin(), out_minus_def.end());
-            in[stm] = new_in;
-            if (in[stm] != old_in || out[stm] != old_out) changed = true;
+
+            vector<QuadStm*>& stmts = *block->quadlist;
+            for (int i = static_cast<int>(stmts.size()) - 1; i >= 0; --i) {
+                QuadStm* stmt = stmts[i];
+                if (!stmt) {
+                    continue;
+                }
+
+                set<int> newOut;
+                if (i + 1 < static_cast<int>(stmts.size())) {
+                    QuadStm* nextStmt = stmts[i + 1];
+                    if (nextStmt) {
+                        newOut.insert((*livein)[nextStmt].begin(), (*livein)[nextStmt].end());
+                    }
+                } else if (block->exit_labels) {
+                    for (Label* succLabel : *block->exit_labels) {
+                        if (!succLabel) {
+                            continue;
+                        }
+                        auto succIt = labelToBlock.find(succLabel->num);
+                        if (succIt == labelToBlock.end() || !succIt->second || !succIt->second->quadlist || succIt->second->quadlist->empty()) {
+                            continue;
+                        }
+                        QuadStm* firstSuccStmt = succIt->second->quadlist->front();
+                        if (firstSuccStmt) {
+                            newOut.insert((*livein)[firstSuccStmt].begin(), (*livein)[firstSuccStmt].end());
+                        }
+                    }
+                }
+
+                set<int> newIn;
+                if (stmt->use) {
+                    for (Temp* t : *stmt->use) {
+                        if (t) {
+                            newIn.insert(t->num);
+                        }
+                    }
+                }
+
+                set<int> outMinusDef = newOut;
+                if (stmt->def) {
+                    for (Temp* t : *stmt->def) {
+                        if (t) {
+                            outMinusDef.erase(t->num);
+                        }
+                    }
+                }
+                newIn.insert(outMinusDef.begin(), outMinusDef.end());
+
+                if (newOut != (*liveout)[stmt] || newIn != (*livein)[stmt]) {
+                    (*liveout)[stmt] = newOut;
+                    (*livein)[stmt] = newIn;
+                    changed = true;
+                }
+            }
         }
-    }
-    // 写回
-    for (auto stm : stmts) {
-        (*livein)[stm] = in[stm];
-        (*liveout)[stm] = out[stm];
     }
 }
 
@@ -136,10 +168,26 @@ set<DataFlowInfo*>* dataFLowProg(QuadProgram* prog) {
     // return a set of DataFlowInfo for all functions
     if (!prog || !prog->quadFuncDeclList) return nullptr;
     set<DataFlowInfo*>* allDataFlows = new set<DataFlowInfo*>();
+
+    size_t validFuncCnt = 0;
+    for (auto func : *prog->quadFuncDeclList) {
+        if (func && func->quadblocklist) {
+            ++validFuncCnt;
+        }
+    }
+
+    void* pool = nullptr;
+    size_t poolIndex = 0;
+    if (validFuncCnt > 0) {
+        pool = ::operator new(sizeof(DataFlowInfo) * validFuncCnt);
+    }
+
     for (auto func : *prog->quadFuncDeclList) {
         if (!func || !func->quadblocklist) continue;
-        
-        DataFlowInfo* dfInfo = new DataFlowInfo(func);
+
+        void* slot = static_cast<char*>(pool) + poolIndex * sizeof(DataFlowInfo);
+        DataFlowInfo* dfInfo = new (slot) DataFlowInfo(func);
+        ++poolIndex;
         dfInfo->findAllVars();
         dfInfo->computeLiveness();
 #ifdef DEBUG

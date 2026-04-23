@@ -49,26 +49,43 @@ void ControlFlowInfo::computeUnreachableBlocks() {
     cout << "Computing unreachable blocks in function: " << func->funcname << endl;
 #endif
     // FILE IN THE CODE HERE TO COMPUTE UNREACHABLE BLOCKS
-    // 使用BFS/DFS从入口块遍历所有可达块，剩下的就是不可达块
     unreachableBlocks.clear();
-    if (entryBlock == -1) return;
-    set<int> visited;
-    queue<int> q;
-    q.push(entryBlock);
-    visited.insert(entryBlock);
-    while (!q.empty()) {
-        int cur = q.front(); q.pop();
-        if (successors.count(cur)) {
-            for (int succ : successors[cur]) {
-                if (!visited.count(succ)) {
-                    visited.insert(succ);
-                    q.push(succ);
-                }
+    if (!func || !func->quadblocklist || allBlocks.empty() || entryBlock == -1) {
+        return;
+    }
+
+    set<int> reachable;
+    queue<int> work;
+    reachable.insert(entryBlock);
+    work.push(entryBlock);
+
+    while (!work.empty()) {
+        int b = work.front();
+        work.pop();
+
+        auto blockIt = labelToBlock.find(b);
+        if (blockIt == labelToBlock.end() || !blockIt->second || !blockIt->second->exit_labels) {
+            continue;
+        }
+
+        for (Label* succLabel : *blockIt->second->exit_labels) {
+            if (!succLabel) {
+                continue;
+            }
+            int succ = succLabel->num;
+            if (allBlocks.find(succ) == allBlocks.end()) {
+                continue;
+            }
+            if (reachable.insert(succ).second) {
+                work.push(succ);
             }
         }
     }
+
     for (int b : allBlocks) {
-        if (!visited.count(b)) unreachableBlocks.insert(b);
+        if (reachable.find(b) == reachable.end()) {
+            unreachableBlocks.insert(b);
+        }
     }
 }
 
@@ -78,18 +95,31 @@ void ControlFlowInfo::eliminateUnreachableBlocks() {
 #endif
     // FILE IN THE CODE HERE TO ELIMINATE UNREACHABLE BLOCKS from the function,
     // and emptying all the sets and maps above since everything may need to be recomputed!
-    // 先移除不可达块
-    if (unreachableBlocks.empty()) return;
-    // 移除func->quadblocklist中对应的block
-    auto &blocks = *func->quadblocklist;
-    blocks.erase(
-        remove_if(blocks.begin(), blocks.end(), [&](quad::QuadBlock* blk) {
-            return blk && blk->entry_label && unreachableBlocks.count(blk->entry_label->num);
-        }),
-        blocks.end()
-    );
-    // 清空所有分析结果
+    if (!func || !func->quadblocklist || unreachableBlocks.empty()) {
+        predecessors.clear();
+        successors.clear();
+        dominators.clear();
+        immediateDominator.clear();
+        dominanceFrontiers.clear();
+        domTree.clear();
+        computeAllBlocks();
+        return;
+    }
+
+    vector<QuadBlock*>* newBlocks = new vector<QuadBlock*>();
+    newBlocks->reserve(func->quadblocklist->size());
+    for (QuadBlock* block : *func->quadblocklist) {
+        if (!block || !block->entry_label) {
+            continue;
+        }
+        if (unreachableBlocks.find(block->entry_label->num) == unreachableBlocks.end()) {
+            newBlocks->push_back(block);
+        }
+    }
+    func->quadblocklist = newBlocks;
+
     allBlocks.clear();
+    unreachableBlocks.clear();
     labelToBlock.clear();
     predecessors.clear();
     successors.clear();
@@ -97,21 +127,34 @@ void ControlFlowInfo::eliminateUnreachableBlocks() {
     immediateDominator.clear();
     dominanceFrontiers.clear();
     domTree.clear();
-    unreachableBlocks.clear();
+
+    computeAllBlocks();
 }
 
 void ControlFlowInfo::computePredecessors() {
     // Compute predecessors for each block
     // FILE IN THE CODE HERE TO COMPUTE PREDECESSORS for each block
     predecessors.clear();
-    for (int b : allBlocks) predecessors[b] = set<int>();
+    if (!func || !func->quadblocklist) {
+        return;
+    }
+
     for (int b : allBlocks) {
-        if (!labelToBlock.count(b)) continue;
-        quad::QuadBlock* blk = labelToBlock[b];
-        if (!blk->exit_labels) continue;
-        for (auto lbl : *blk->exit_labels) {
-            if (lbl && allBlocks.count(lbl->num)) {
-                predecessors[lbl->num].insert(b);
+        predecessors[b] = set<int>();
+    }
+
+    for (int b : allBlocks) {
+        auto blockIt = labelToBlock.find(b);
+        if (blockIt == labelToBlock.end() || !blockIt->second || !blockIt->second->exit_labels) {
+            continue;
+        }
+        for (Label* succLabel : *blockIt->second->exit_labels) {
+            if (!succLabel) {
+                continue;
+            }
+            int succ = succLabel->num;
+            if (allBlocks.find(succ) != allBlocks.end()) {
+                predecessors[succ].insert(b);
             }
         }
     }
@@ -121,14 +164,26 @@ void ControlFlowInfo::computeSuccessors() {
     // Compute successors for each block
     // FILE IN THE CODE HERE TO COMPUTE SUCCESSORS for each block
     successors.clear();
-    for (int b : allBlocks) successors[b] = set<int>();
+    if (!func || !func->quadblocklist) {
+        return;
+    }
+
     for (int b : allBlocks) {
-        if (!labelToBlock.count(b)) continue;
-        quad::QuadBlock* blk = labelToBlock[b];
-        if (!blk->exit_labels) continue;
-        for (auto lbl : *blk->exit_labels) {
-            if (lbl && allBlocks.count(lbl->num)) {
-                successors[b].insert(lbl->num);
+        successors[b] = set<int>();
+    }
+
+    for (int b : allBlocks) {
+        auto blockIt = labelToBlock.find(b);
+        if (blockIt == labelToBlock.end() || !blockIt->second || !blockIt->second->exit_labels) {
+            continue;
+        }
+        for (Label* succLabel : *blockIt->second->exit_labels) {
+            if (!succLabel) {
+                continue;
+            }
+            int succ = succLabel->num;
+            if (allBlocks.find(succ) != allBlocks.end()) {
+                successors[b].insert(succ);
             }
         }
     }
@@ -140,24 +195,48 @@ void ControlFlowInfo::computeDominators() {
 #endif
     // Compute dominators for each block
     // FILE IN THE CODE HERE TO COMPUTE DOMINATORS for each block
-    // 经典迭代算法
     dominators.clear();
-    for (int b : allBlocks) {
-        if (b == entryBlock) dominators[b] = {b};
-        else dominators[b] = allBlocks;
+    if (!func || !func->quadblocklist || allBlocks.empty() || entryBlock == -1) {
+        return;
     }
+
+    for (int b : allBlocks) {
+        if (b == entryBlock) {
+            dominators[b] = {entryBlock};
+        } else {
+            dominators[b] = allBlocks;
+        }
+    }
+
     bool changed = true;
     while (changed) {
         changed = false;
         for (int b : allBlocks) {
-            if (b == entryBlock) continue;
-            set<int> newDom = allBlocks;
-            for (int p : predecessors[b]) {
-                set<int> tmp;
-                set_intersection(newDom.begin(), newDom.end(), dominators[p].begin(), dominators[p].end(), inserter(tmp, tmp.begin()));
-                newDom = tmp;
+            if (b == entryBlock) {
+                continue;
             }
-            newDom.insert(b);
+
+            set<int> newDom;
+            auto predIt = predecessors.find(b);
+            if (predIt == predecessors.end() || predIt->second.empty()) {
+                newDom.insert(b);
+            } else {
+                bool first = true;
+                for (int p : predIt->second) {
+                    if (first) {
+                        newDom = dominators[p];
+                        first = false;
+                    } else {
+                        set<int> inter;
+                        set_intersection(newDom.begin(), newDom.end(),
+                                         dominators[p].begin(), dominators[p].end(),
+                                         inserter(inter, inter.begin()));
+                        newDom = inter;
+                    }
+                }
+                newDom.insert(b);
+            }
+
             if (newDom != dominators[b]) {
                 dominators[b] = newDom;
                 changed = true;
@@ -172,23 +251,37 @@ void ControlFlowInfo::computeImmediateDominator() {
 #endif
     //FILE IN THE CODE HERE TO COMPUTE IMMEDIATE DOMINATOR for each block, using the dominators information computed above
     immediateDominator.clear();
+    if (!func || !func->quadblocklist || allBlocks.empty()) {
+        return;
+    }
+
     for (int b : allBlocks) {
-        if (b == entryBlock) continue;
-        set<int> doms = dominators[b];
-        doms.erase(b);
+        if (b == entryBlock) {
+            immediateDominator[b] = -1;
+            continue;
+        }
+
+        set<int> strictDom = dominators[b];
+        strictDom.erase(b);
+
         int idom = -1;
-        for (int d : doms) {
-            bool isImm = true;
-            for (int d2 : doms) {
-                if (d == d2) continue;
-                if (dominators[d2].count(d)) {
-                    isImm = false;
+        for (int d : strictDom) {
+            bool isImmediate = true;
+            for (int other : strictDom) {
+                if (other == d) {
+                    continue;
+                }
+                if (dominators[other].find(d) != dominators[other].end()) {
+                    isImmediate = false;
                     break;
                 }
             }
-            if (isImm) { idom = d; break; }
+            if (isImmediate) {
+                idom = d;
+                break;
+            }
         }
-        if (idom != -1) immediateDominator[b] = idom;
+        immediateDominator[b] = idom;
     }
 }
 
@@ -198,9 +291,18 @@ void ControlFlowInfo::computeDomTree() {
     #endif
     // FILE IN THE CODE HERE TO COMPUTE DOMINATOR TREE using immediate dominators
     domTree.clear();
+    if (!func || !func->quadblocklist) {
+        return;
+    }
+
     for (int b : allBlocks) {
-        if (immediateDominator.count(b)) {
-            int idom = immediateDominator[b];
+        domTree[b] = set<int>();
+    }
+
+    for (const auto& kv : immediateDominator) {
+        int b = kv.first;
+        int idom = kv.second;
+        if (idom != -1) {
             domTree[idom].insert(b);
         }
     }
@@ -210,25 +312,41 @@ void ControlFlowInfo::computeDominanceFrontiers() {
 #ifdef DEBUG
     std::cout << "Computing dominance frontier for: " << func->funcname << endl;
 #endif
+
     //FILE IN THE CODE HERE TO COMPUTE DOMINANCE FRONTIER for each block, using the successors, dominators, immediate dominator, and domTree information computed above
 
     dominanceFrontiers.clear();
+    if (!func || !func->quadblocklist) {
+        return;
+    }
+
     for (int b : allBlocks) {
-        set<int> df;
-        if (!successors.count(b)) continue;
-        for (int s : successors[b]) {
-            if (immediateDominator.count(s) && immediateDominator[s] != b) {
-                df.insert(s);
-            }
+        dominanceFrontiers[b] = set<int>();
+    }
+
+    for (int b : allBlocks) {
+        auto predIt = predecessors.find(b);
+        if (predIt == predecessors.end() || predIt->second.size() < 2) {
+            continue;
         }
-        for (int c : domTree[b]) {
-            for (int w : dominanceFrontiers[c]) {
-                if (!dominators[b].count(w) || b == w) {
-                    df.insert(w);
+
+        int idomB = -1;
+        auto idomIt = immediateDominator.find(b);
+        if (idomIt != immediateDominator.end()) {
+            idomB = idomIt->second;
+        }
+
+        for (int p : predIt->second) {
+            int runner = p;
+            while (runner != -1 && runner != idomB) {
+                dominanceFrontiers[runner].insert(b);
+                auto runnerIdomIt = immediateDominator.find(runner);
+                if (runnerIdomIt == immediateDominator.end()) {
+                    break;
                 }
+                runner = runnerIdomIt->second;
             }
         }
-        dominanceFrontiers[b] = df;
     }
 
 }
