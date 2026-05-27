@@ -18,8 +18,51 @@ LoopHeaderMap* findLoopHeadersWithFlow(QuadFuncDecl* func, ControlFlowInfo* flow
     LoopHeaderMap* loopHeaderMap = new LoopHeaderMap();
     loopHeaderMap->initFunc(func);
 
-    // You may copy your HW9 look header finding code here, but you need to use the flowInfo to find loop 
-    // headers and their bodies using the CFG structure in flowInfo
+    map<int, set<int>> headerToBody;
+
+    for (const auto& [sourceLabel, succs] : flowInfo->successors) {
+        auto domIt = flowInfo->dominators.find(sourceLabel);
+        if (domIt == flowInfo->dominators.end()) {
+            continue;
+        }
+
+        for (int targetLabel : succs) {
+            if (!domIt->second.count(targetLabel)) {
+                continue;
+            }
+
+            set<int>& loopBody = headerToBody[targetLabel];
+            loopBody.insert(targetLabel);
+
+            vector<int> worklist = {sourceLabel};
+            while (!worklist.empty()) {
+                int currentLabel = worklist.back();
+                worklist.pop_back();
+
+                if (!loopBody.insert(currentLabel).second) {
+                    continue;
+                }
+
+                auto predIt = flowInfo->predecessors.find(currentLabel);
+                if (predIt == flowInfo->predecessors.end()) {
+                    continue;
+                }
+
+                for (int predLabel : predIt->second) {
+                    if (!loopBody.count(predLabel)) {
+                        worklist.push_back(predLabel);
+                    }
+                }
+            }
+        }
+    }
+
+    set<LoopHeader*> loopHeaders;
+    for (const auto& [headerLabel, bodyBlocks] : headerToBody) {
+        loopHeaders.insert(new LoopHeader(headerLabel, bodyBlocks));
+    }
+
+    loopHeaderMap->addLoopHeader(func, loopHeaders);
 
     return loopHeaderMap;
 }

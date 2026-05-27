@@ -1,0 +1,24 @@
+# ninja log v5
+5485	9907	1779716356081047542	vendor/tinyxml2/CMakeFiles/vendor_xml.dir/tinyxml2.cc.o	2475f62cbfb0f655
+9907	10421	1779716356588047887	tools/main/main	2dc5f5619f9eb6b5
+9	9846	1779716356020380835	lib/opt/CMakeFiles/opt.dir/loopstrengthreduction.cc.o	ab163f1aa465e2d8
+3	9027	1779716355201380279	lib/util/CMakeFiles/util.dir/xml2quad.cc.o	fbb89870e9ea8894
+5	8029	1779716354191712931	lib/opt/CMakeFiles/opt.dir/loopinductionbasic.cc.o	f3741db7b57588a5
+5	7637	1779716353810379338	lib/opt/CMakeFiles/opt.dir/loopinductionderived.cc.o	19e8cffc13c8c875
+2	5483	1779716351662087078	lib/util/CMakeFiles/util.dir/print_config.cc.o	65d3022dab780d6e
+18	6175	1779716352354087085	lib/quadflow/CMakeFiles/quadflow.dir/dataflowinfo.cc.o	f20b119c33ef2939
+11	8919	1779716355093046870	lib/quad/CMakeFiles/quad.dir/quad.cc.o	489f7433c27b3d07
+4	7012	1779716353186378914	lib/opt/CMakeFiles/opt.dir/loopheaderwithflow.cc.o	65f3ea6504683c0f
+6	7331	1779716353502712468	lib/opt/CMakeFiles/opt.dir/loopinductionelimination.cc.o	d895a86f2647536d
+8	6268	1779716352446087087	lib/opt/CMakeFiles/opt.dir/loopoptanalysis.cc.o	9767070e1ee63b34
+24	6495	1779716352666378559	tools/main/CMakeFiles/main.dir/main.cc.o	e31c322d3a379c67
+21	6695	1779716352870045367	lib/quadflow/CMakeFiles/quadflow.dir/flowinfo.cc.o	492ec9406127fb5c
+2	6435	1779716352606087091	lib/util/CMakeFiles/util.dir/quad2xml.cc.o	e83c3bce522b054a
+3	7489	1779716353663045907	lib/util/CMakeFiles/util.dir/xml2flow.cc.o	bb3a341be8e966bc
+4	7062	1779716353238378950	lib/opt/CMakeFiles/opt.dir/defusechain.cc.o	75f17505c4fa9ea8
+8	6797	1779716352974045438	lib/opt/CMakeFiles/opt.dir/loopoptreport.cc.o	42e86192aa7c1a9b
+6838	8041	1779716354126712884	lib/quadflow/libquadflow.a	8da35a4a217aa4eb
+6	6924	1779716353095378855	lib/opt/CMakeFiles/opt.dir/loopinductionopt.cc.o	399eb6f55cbcdc93
+11	6837	1779716352995712118	lib/quadflow/CMakeFiles/quadflow.dir/controlflowinfo.cc.o	354e2c2899da586c
+5	2539	1779718777460905947	lib/opt/CMakeFiles/opt.dir/loopinductionderived.cc.o	19e8cffc13c8c875
+2539	2891	1779718777811905967	tools/main/main	2dc5f5619f9eb6b5
