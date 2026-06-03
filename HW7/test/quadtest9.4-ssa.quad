@@ -1,12 +1,3 @@
-Function A^f(t100) last_label=100 last_temp=103:
-  Block: Entry Label: L100
-    Exit labels: 
-    LABEL L100; def: use: 
-    PTR_CALC t10200:ptr <- t100:ptr + Const:0; def: t10200 use: t100 
-    STORE Const:1 -> Mem(t10200:ptr); def: use: t10200 
-    PTR_CALC t10300:ptr <- t100:ptr + Const:4; def: t10300 use: t100 
-    STORE Const:2 -> Mem(t10300:ptr); def: use: t10300 
-    RETURN Const:0; def: use: 
 Function B^f(t100) last_label=100 last_temp=112:
   Block: Entry Label: L100
     Exit labels: 
@@ -45,7 +36,7 @@ Function __$main__^main() last_label=100 last_temp=151:
     CALL f[t10700:ptr] (t10001:ptr); def: use: t10700 t10001 
     PTR_CALC t12300:ptr <- t10101:ptr + Const:16; def: t12300 use: t10101 
     LOAD t10900:ptr <- Mem(t12300:ptr); def: t10900 use: t12300 
-    CALL f[t10900:ptr] (t10101:ptr); def: use: t10101 t10900 
+    CALL f[t10900:ptr] (t10101:ptr); def: use: t10900 t10101 
     PTR_CALC t12500:ptr <- t10001:ptr + Const:0; def: t12500 use: t10001 
     LOAD t12600:int <- Mem(t12500:ptr); def: t12600 use: t12500 
     PTR_CALC t12700:ptr <- t10001:ptr + Const:4; def: t12700 use: t10001 
@@ -77,3 +68,12 @@ Function __$main__^main() last_label=100 last_temp=151:
     EXTCALL putint(t11400:int); def: use: t11400 
     EXTCALL putch(Const:10); def: use: 
     RETURN Const:1; def: use: 
+Function A^f(t100) last_label=100 last_temp=103:
+  Block: Entry Label: L100
+    Exit labels: 
+    LABEL L100; def: use: 
+    PTR_CALC t10200:ptr <- t100:ptr + Const:0; def: t10200 use: t100 
+    STORE Const:1 -> Mem(t10200:ptr); def: use: t10200 
+    PTR_CALC t10300:ptr <- t100:ptr + Const:4; def: t10300 use: t100 
+    STORE Const:2 -> Mem(t10300:ptr); def: use: t10300 
+    RETURN Const:0; def: use: 

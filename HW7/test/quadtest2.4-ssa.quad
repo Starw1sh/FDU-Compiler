@@ -33,12 +33,11 @@ Function __$main__^main() last_label=113 last_temp=170:
   Block: Entry Label: L113
     Exit labels: L105 L104 
     LABEL L113; def: use: 
-    MOVE t10200:ptr <- Const:0; def: t10200 use: 
     MOVE t10000:int <- Const:0; def: t10000 use: 
     MOVE_EXTCALL t10400:ptr <- malloc(Const:4); def: t10400 use: 
     PTR_CALC t13800:ptr <- t10400:ptr + Const:0; def: t13800 use: t10400 
     STORE Name:fib^f -> Mem(t13800:ptr); def: use: t13800 
-    MOVE t10201:ptr <- t10400:ptr; def: t10201 use: t10400 
+    MOVE t10200:ptr <- t10400:ptr; def: t10200 use: t10400 
     EXTCALL putch(Const:69); def: use: 
     EXTCALL putch(Const:110); def: use: 
     EXTCALL putch(Const:116); def: use: 
@@ -87,14 +86,14 @@ Function __$main__^main() last_label=113 last_temp=170:
     Exit labels: L111 L112 
     LABEL L110; def: use: 
     PHI t10001:int <- Phi([t10000, L107], [t10002, L111]); def: t10001 use: t10002 t10000 
-    CJUMP < t10001:int t10100:int? L111 : L112; def: use: t10100 t10001 
+    CJUMP < t10001:int t10100:int? L111 : L112; def: use: t10001 t10100 
   Block: Entry Label: L111
     Exit labels: L110 
     LABEL L111; def: use: 
-    PTR_CALC t16600:ptr <- t10201:ptr + Const:0; def: t16600 use: t10201 
-    LOAD t13200:ptr <- Mem(t16600:ptr); def: t13200 use: t16600 
-    MOVE_CALL t13300:int <- f[t13200:ptr] (t10201:ptr, t10001:int); def: t13300 use: t13200 t10201 t10001 
-    EXTCALL putint(t13300:int); def: use: t13300 
+    PTR_CALC t16602:ptr <- t10200:ptr + Const:0; def: t16602 use: t10200 
+    LOAD t13202:ptr <- Mem(t16602:ptr); def: t13202 use: t16602 
+    MOVE_CALL t13302:int <- f[t13202:ptr] (t10200:ptr, t10001:int); def: t13302 use: t10001 t13202 t10200 
+    EXTCALL putint(t13302:int); def: use: t13302 
     EXTCALL putch(Const:32); def: use: 
     MOVE_BINOP t10002:int <- (+, t10001:int, Const:1); def: t10002 use: t10001 
     JUMP L110; def: use: 

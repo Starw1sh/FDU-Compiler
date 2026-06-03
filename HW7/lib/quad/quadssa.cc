@@ -14,6 +14,7 @@
 #include "flowinfo.hh"
 #include "quadssa.hh"
 #include "temp.hh"
+#include "quadssa_diag.hh"
 
 using namespace std;
 using namespace quad;
@@ -22,6 +23,8 @@ using namespace quad;
 static void placePhi(QuadFuncDecl* func, ControlFlowInfo* domInfo, DataFlowInfo* liveness);
 static void renameVariables(QuadFuncDecl* func, ControlFlowInfo* domInfo);
 static void cleanupUnusedPhi(QuadFuncDecl* func);
+
+SsaDiagState diag;
 
 namespace {
 
@@ -461,7 +464,7 @@ struct RenameContext {
         return temp;
     }
 
-    Temp* pushNewVersion(int origNum, QuadType type) {
+    Temp* pushNewVersion(int origNum, QuadType type, int blockNum) {
         int nextVersion = 0;
         auto counterIt = versionCounters.find(origNum);
         if (counterIt != versionCounters.end()) {
@@ -472,6 +475,7 @@ struct RenameContext {
 
         int versionedNum = VersionedTemp::versionedTempNum(origNum, nextVersion);
         Temp* temp = getCanonicalTemp(tempPool, versionedNum);
+        diag.createdVersionBlocksByVar[origNum][nextVersion].insert(blockNum);
         versionStacks[origNum].push_back(temp);
         return temp;
     }
@@ -596,7 +600,7 @@ struct RenameContext {
                 }
 
                 int origNum = originalTempNum(phi->temp_exp->temp->num, originalLastTemp);
-                Temp* renamed = pushNewVersion(origNum, phi->temp_exp->type);
+                Temp* renamed = pushNewVersion(origNum, phi->temp_exp->type,blockNum);
                 phi->temp_exp = new QuadTemp(renamed, phi->temp_exp->type);
                 pushedTemps.push_back(origNum);
             }
@@ -611,7 +615,7 @@ struct RenameContext {
                         auto* move = static_cast<QuadMove*>(stmt);
                         move->src = renameTerm(move->src);
                         int origNum = originalTempNum(move->dst->temp->num, originalLastTemp);
-                        move->dst = new QuadTemp(pushNewVersion(origNum, move->dst->type), move->dst->type);
+                        move->dst = new QuadTemp(pushNewVersion(origNum, move->dst->type, blockNum), move->dst->type);
                         pushedTemps.push_back(origNum);
                         break;
                     }
@@ -619,7 +623,7 @@ struct RenameContext {
                         auto* load = static_cast<QuadLoad*>(stmt);
                         load->src = renameTerm(load->src);
                         int origNum = originalTempNum(load->dst->temp->num, originalLastTemp);
-                        load->dst = new QuadTemp(pushNewVersion(origNum, load->dst->type), load->dst->type);
+                        load->dst = new QuadTemp(pushNewVersion(origNum, load->dst->type, blockNum), load->dst->type);
                         pushedTemps.push_back(origNum);
                         break;
                     }
@@ -634,7 +638,7 @@ struct RenameContext {
                         binop->left = renameTerm(binop->left);
                         binop->right = renameTerm(binop->right);
                         int origNum = originalTempNum(binop->dst->temp->num, originalLastTemp);
-                        binop->dst = new QuadTemp(pushNewVersion(origNum, binop->dst->type), binop->dst->type);
+                        binop->dst = new QuadTemp(pushNewVersion(origNum, binop->dst->type, blockNum), binop->dst->type);
                         pushedTemps.push_back(origNum);
                         break;
                     }
@@ -645,7 +649,7 @@ struct RenameContext {
                         auto* moveCall = static_cast<QuadMoveCall*>(stmt);
                         renameCallArgs(moveCall->call);
                         int origNum = originalTempNum(moveCall->dst->temp->num, originalLastTemp);
-                        moveCall->dst = new QuadTemp(pushNewVersion(origNum, moveCall->dst->type), moveCall->dst->type);
+                        moveCall->dst = new QuadTemp(pushNewVersion(origNum, moveCall->dst->type, blockNum), moveCall->dst->type);
                         pushedTemps.push_back(origNum);
                         break;
                     }
@@ -656,7 +660,7 @@ struct RenameContext {
                         auto* moveExtCall = static_cast<QuadMoveExtCall*>(stmt);
                         renameExtCallArgs(moveExtCall->extcall);
                         int origNum = originalTempNum(moveExtCall->dst->temp->num, originalLastTemp);
-                        moveExtCall->dst = new QuadTemp(pushNewVersion(origNum, moveExtCall->dst->type), moveExtCall->dst->type);
+                        moveExtCall->dst = new QuadTemp(pushNewVersion(origNum, moveExtCall->dst->type, blockNum), moveExtCall->dst->type);
                         pushedTemps.push_back(origNum);
                         break;
                     }
@@ -678,7 +682,7 @@ struct RenameContext {
                         if (ptrCalc->dst != nullptr && ptrCalc->dst->kind == QuadTermKind::TEMP) {
                             QuadTemp* dst = ptrCalc->dst->get_temp();
                             int origNum = originalTempNum(dst->temp->num, originalLastTemp);
-                            ptrCalc->dst = new QuadTerm(new QuadTemp(pushNewVersion(origNum, dst->type), dst->type));
+                            ptrCalc->dst = new QuadTerm(new QuadTemp(pushNewVersion(origNum, dst->type, blockNum), dst->type));
                             pushedTemps.push_back(origNum);
                         }
                         break;
@@ -718,7 +722,6 @@ static void placePhi(QuadFuncDecl* func, ControlFlowInfo* domInfo, DataFlowInfo*
     if (func == nullptr || func->quadblocklist == nullptr || domInfo == nullptr) {
         return;
     }
-
     map<int, QuadType> tempTypes;
     collectTempTypes(func, tempTypes);
 
@@ -764,6 +767,7 @@ static void placePhi(QuadFuncDecl* func, ControlFlowInfo* domInfo, DataFlowInfo*
                 }
 
                 placedVarsByBlock[frontierBlockNum].insert(varNum);
+                // diag.candidatePhiBlocksByVar[varNum].insert(frontierBlockNum);
 
                 vector<pair<Temp*, Label*>>* args = new vector<pair<Temp*, Label*>>();
                 auto predIt = domInfo->predecessors.find(frontierBlockNum);
@@ -784,6 +788,7 @@ static void placePhi(QuadFuncDecl* func, ControlFlowInfo* domInfo, DataFlowInfo*
                 pendingPhis[frontierBlockNum].push_back(
                     new QuadPhi(new QuadTemp(getCanonicalTemp(tempPool, varNum), tempType), args, def, new set<Temp*>())
                 );
+                diag.candidatePhiBlocksByVar[varNum].insert(frontierBlockNum);
 
                 if (enqueued.insert(frontierBlockNum).second) {
                     worklist.push(frontierBlockNum);
@@ -917,6 +922,9 @@ static void cleanupUnusedPhi(QuadFuncDecl* func) {
 
                 if (dropPhi) {
                     changed = true;
+                    auto* phi = static_cast<QuadPhi*>(stmt);
+                    int versionedTemp=phi->temp_exp->temp->num;
+                    diag.eliminatedVersionBlocksByVar[versionedTemp/100][versionedTemp%100].insert(block->entry_label->num);
                 } else {
                     kept->push_back(stmt);
                 }
@@ -945,6 +953,11 @@ quad::QuadProgram *quad2ssa(set<FuncFlowInfo*>* allFuncFlow) {
             continue;
         }
         QuadFuncDecl* funcdecl = ffi->cfi->func;
+        diag.funcName=funcdecl->funcname;
+        diag.candidatePhiBlocksByVar.clear();
+        diag.actualPhiBlocksByVar.clear();
+        diag.createdVersionBlocksByVar.clear();
+        diag.eliminatedVersionBlocksByVar.clear();
         int maxLastLabelNum = funcdecl->last_label_num;
         int maxLastTempNum = funcdecl->last_temp_num;
 
@@ -965,6 +978,7 @@ quad::QuadProgram *quad2ssa(set<FuncFlowInfo*>* allFuncFlow) {
         if (prog_last_temp_num < funcdecl->last_temp_num) {
             prog_last_temp_num = funcdecl->last_temp_num;
         }
+        printSsaDiagSummary(funcdecl, diag);
     }
     return new QuadProgram(funcs, prog_last_label_num, prog_last_temp_num);
 }

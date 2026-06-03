@@ -198,12 +198,19 @@ build lib/quad/CMakeFiles/quad.dir/quadssa.cc.o: CXX_COMPILER__quad_unscanned_Re
   OBJECT_DIR = lib/quad/CMakeFiles/quad.dir
   OBJECT_FILE_DIR = lib/quad/CMakeFiles/quad.dir
 
+build lib/quad/CMakeFiles/quad.dir/quadssa_diag.cc.o: CXX_COMPILER__quad_unscanned_Release /home/guxue/fducompilerh2026/HW7/lib/quad/quadssa_diag.cc || cmake_object_order_depends_target_quad
+  DEP_FILE = lib/quad/CMakeFiles/quad.dir/quadssa_diag.cc.o.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
+  INCLUDES = -I/home/guxue/fducompilerh2026/HW7/include/ir -I/home/guxue/fducompilerh2026/HW7/include/quad -I/home/guxue/fducompilerh2026/HW7/include/quadflow -I/home/guxue/fducompilerh2026/HW7/include/util -I/home/guxue/fducompilerh2026/HW7/vendor/tinyxml2
+  OBJECT_DIR = lib/quad/CMakeFiles/quad.dir
+  OBJECT_FILE_DIR = lib/quad/CMakeFiles/quad.dir
+
 
 
 #############################################
 # Object library quad
 
-build lib/quad/quad: phony lib/quad/CMakeFiles/quad.dir/quad.cc.o lib/quad/CMakeFiles/quad.dir/quadssa.cc.o
+build lib/quad/quad: phony lib/quad/CMakeFiles/quad.dir/quad.cc.o lib/quad/CMakeFiles/quad.dir/quadssa.cc.o lib/quad/CMakeFiles/quad.dir/quadssa_diag.cc.o
 
 
 #############################################
@@ -350,7 +357,7 @@ build tools/main/CMakeFiles/main.dir/main.cc.o: CXX_COMPILER__main_unscanned_Rel
 #############################################
 # Link the executable tools/main/main
 
-build tools/main/main: CXX_EXECUTABLE_LINKER__main_Release lib/util/CMakeFiles/util.dir/flow2xml.cc.o lib/util/CMakeFiles/util.dir/print_config.cc.o lib/util/CMakeFiles/util.dir/quad2xml.cc.o lib/util/CMakeFiles/util.dir/xml2flow.cc.o lib/util/CMakeFiles/util.dir/xml2quad.cc.o lib/quad/CMakeFiles/quad.dir/quad.cc.o lib/quad/CMakeFiles/quad.dir/quadssa.cc.o lib/quadflow/CMakeFiles/quadflow.dir/controlflowinfo.cc.o lib/quadflow/CMakeFiles/quadflow.dir/dataflowinfo.cc.o lib/quadflow/CMakeFiles/quadflow.dir/flowinfo.cc.o vendor/tinyxml2/CMakeFiles/vendor_xml.dir/tinyxml2.cc.o tools/main/CMakeFiles/main.dir/main.cc.o || lib/quad/quad lib/quadflow/quadflow lib/util/util vendor/tinyxml2/vendor_xml
+build tools/main/main: CXX_EXECUTABLE_LINKER__main_Release lib/util/CMakeFiles/util.dir/flow2xml.cc.o lib/util/CMakeFiles/util.dir/print_config.cc.o lib/util/CMakeFiles/util.dir/quad2xml.cc.o lib/util/CMakeFiles/util.dir/xml2flow.cc.o lib/util/CMakeFiles/util.dir/xml2quad.cc.o lib/quad/CMakeFiles/quad.dir/quad.cc.o lib/quad/CMakeFiles/quad.dir/quadssa.cc.o lib/quad/CMakeFiles/quad.dir/quadssa_diag.cc.o lib/quadflow/CMakeFiles/quadflow.dir/controlflowinfo.cc.o lib/quadflow/CMakeFiles/quadflow.dir/dataflowinfo.cc.o lib/quadflow/CMakeFiles/quadflow.dir/flowinfo.cc.o vendor/tinyxml2/CMakeFiles/vendor_xml.dir/tinyxml2.cc.o tools/main/CMakeFiles/main.dir/main.cc.o || lib/quad/quad lib/quadflow/quadflow lib/util/util vendor/tinyxml2/vendor_xml
   FLAGS = -Wno-unused-result --std=c++17 -O3 -DNDEBUG
   OBJECT_DIR = tools/main/CMakeFiles/main.dir
   POST_BUILD = :
