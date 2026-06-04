@@ -8,15 +8,12 @@ movw t130, #4
 mov r0, t130
 bl malloc
 mov t10300, r0
-mov t10100, #3
 movw t131, #20
 mov r0, t131
 bl malloc
 mov t10400, r0
 movw t132, #4
 str t132, [t10400]
-mov t12100, t10300
-mov t10000, t10300
 movw t133, #1
 str t133, [t10400, #4]
 movw t134, #2
@@ -25,7 +22,9 @@ movw t135, #3
 str t135, [t10400, #12]
 movw t136, #4
 str t136, [t10400, #16]
-str t10400, [t12100]
+str t10400, [t10300]
+mov t10000, t10300
+mov t10100, #3
 mov t10101, t10100
 L102:
 movw t140, #0

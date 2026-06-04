@@ -22,16 +22,12 @@ movw t135, #8
 mov r0, t135
 bl malloc
 mov t10400, r0
-mov t10200, #3
 movw t136, #20
 mov r0, t136
 bl malloc
 mov t10500, r0
 movw t137, #4
 str t137, [t10500]
-mov t12400, t10400
-add t12500, t10400, #4
-mov t10600, t10400
 movw t138, #1
 str t138, [t10500, #4]
 movw t139, #2
@@ -40,14 +36,16 @@ movw t140, #3
 str t140, [t10500, #12]
 movw t141, #4
 str t141, [t10500, #16]
-str t10500, [t12400]
+str t10500, [t10400]
 ldr t142, =C^m
-str t142, [t12500]
+str t142, [t10400, #4]
+mov t10600, t10400
 ldr t11000, [t10600, #4]
 mov r0, t10600
 blx t11000
 mov t11100, r0
 mov t10000, t11100
+mov t10200, #3
 mov t10201, t10200
 L102:
 movw t146, #0

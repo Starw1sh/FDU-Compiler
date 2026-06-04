@@ -12,10 +12,10 @@ ldr t113, =C^max
 str t113, [t10100]
 mov t10200, t10100
 ldr t10400, [t10200]
-movw t114, #100
-movw t115, #200
 mov r0, t10200
+movw t114, #100
 mov r1, t114
+movw t115, #200
 mov r2, t115
 blx t10400
 mov t10500, r0

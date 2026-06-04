@@ -26,13 +26,13 @@ bx lr
 L103:
 movw t114, #4
 mul t10900, t114, t10001
-sub t10002, t10001, #2
 add t10300, t10900, #2
 mov r0, t10300
 bl putint
 movw t115, #32
 mov r0, t115
 bl putch
+sub t10002, t10001, #2
 mov t10001, t10002
 b L102
 

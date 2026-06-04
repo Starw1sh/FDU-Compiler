@@ -1,15 +1,61 @@
+.global fib^f
+fib^f:
+L108:
+push {r4-r10, fp, lr}
+sub sp, sp, #4
+add fp, sp, #36
+mov t100, r0
+mov t101, r1
+movw t119, #0
+cmp t101, t119
+beq L105
+L104:
+movw t120, #1
+cmp t101, t120
+beq L105
+L106:
+ldr t10300, [t100]
+mov t10600, t10300
+mov t10500, t100
+sub t10400, t101, #1
+mov r0, t10500
+mov r1, t10400
+blx t10600
+mov t10700, r0
+mov t11300, t10700
+ldr t10800, [t100]
+mov t11100, t10800
+mov t11000, t100
+sub t10900, t101, #2
+mov r0, t11000
+mov r1, t10900
+blx t11100
+mov t11200, r0
+add t11800, t11300, t11200
+mov r0, t11800
+sub sp, fp, #36
+add sp, sp, #4
+pop {r4-r10, fp, lr}
+bx lr
+L105:
+mov r0, t101
+sub sp, fp, #36
+add sp, sp, #4
+pop {r4-r10, fp, lr}
+bx lr
+
 .global __$main__^main
 __$main__^main:
 L113:
 push {r4-r10, fp, lr}
 sub sp, sp, #4
 add fp, sp, #36
+mov t10200, #0
+mov t10000, #0
 movw t171, #4
 mov r0, t171
 bl malloc
 mov t10400, r0
-mov t10200, #0
-mov t10000, #0
 ldr t172, =fib^f
 str t172, [t10400]
 mov t10201, t10400
@@ -90,12 +136,12 @@ mov r0, t197
 bl putch
 bl getint
 mov t10100, r0
-movw t202, #0
-cmp t10100, t202
+movw t201, #0
+cmp t10100, t201
 blt L105
 L104:
-movw t203, #47
-cmp t10100, t203
+movw t202, #47
+cmp t10100, t202
 bgt L105
 L106:
 L107:
@@ -104,81 +150,33 @@ L110:
 cmp t10001, t10100
 blt L111
 L112:
-movw t201, #10
-mov r0, t201
+movw t200, #10
+mov r0, t200
 bl putch
-movw t204, #0
-mov r0, t204
+movw t203, #0
+mov r0, t203
 sub sp, fp, #36
 add sp, sp, #4
 pop {r4-r10, fp, lr}
 bx lr
 L111:
 ldr t13200, [t10201]
-add t10002, t10001, #1
 mov r0, t10201
 mov r1, t10001
 blx t13200
 mov t13300, r0
 mov r0, t13300
 bl putint
-movw t200, #32
-mov r0, t200
+movw t199, #32
+mov r0, t199
 bl putch
+add t10002, t10001, #1
 mov t10001, t10002
 b L110
 L105:
 movw t198, #0
-movw t199, #1
-sub t16500, t198, t199
+sub t16500, t198, #1
 mov r0, t16500
-sub sp, fp, #36
-add sp, sp, #4
-pop {r4-r10, fp, lr}
-bx lr
-
-.global fib^f
-fib^f:
-L108:
-push {r4-r10, fp, lr}
-sub sp, sp, #4
-add fp, sp, #36
-mov t100, r0
-mov t101, r1
-movw t119, #0
-cmp t101, t119
-beq L105
-L104:
-movw t120, #1
-cmp t101, t120
-beq L105
-L106:
-ldr t10300, [t100]
-mov t10500, t100
-sub t10400, t101, #1
-mov t11600, t100
-mov t11000, t100
-sub t10900, t101, #2
-mov t10600, t10300
-mov r0, t10500
-mov r1, t10400
-blx t10600
-mov t10700, r0
-ldr t10800, [t11600]
-mov t11300, t10700
-mov t11100, t10800
-mov r0, t11000
-mov r1, t10900
-blx t11100
-mov t11200, r0
-add t11800, t11300, t11200
-mov r0, t11800
-sub sp, fp, #36
-add sp, sp, #4
-pop {r4-r10, fp, lr}
-bx lr
-L105:
-mov r0, t101
 sub sp, fp, #36
 add sp, sp, #4
 pop {r4-r10, fp, lr}
