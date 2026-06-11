@@ -8,15 +8,16 @@ main$L110:
 	sub sp, sp, #16
 	add fp, sp, #48
 	bl getint
-	mov r10, #10
-	str r10, [fp, #-48]
-	mov r10, #0
-	str r10, [fp, #-40]
+	mov r9, #10
+	str r9, [fp, #-48]
+	mov r9, #0
+	str r9, [fp, #-40]
 	movw r1, #0
 	cmp r0, r1
 	bgt main$L107
 main$L108:
-	mov r4, #4
+	mov r0, #4
+	mov r4, r0
 main$L109:
 	mov r0, r4
 	bl putint
@@ -43,8 +44,8 @@ main$L105:
 	movw r1, #3
 	mul r1, r1, r0
 	sub r4, r0, #1
-	add r10, r1, #2
-	str r10, [fp, #-44]
+	add r9, r1, #2
+	str r9, [fp, #-44]
 	ldr r9, [fp, #-44]
 	mov r0, r9
 	bl putint

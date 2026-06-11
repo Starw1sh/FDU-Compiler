@@ -10,12 +10,11 @@ main$L113:
 	movw r0, #4
 	bl malloc
 	mov r1, #0
-	mov r10, #0
-	str r10, [fp, #-40]
+	mov r4, #0
 	ldr r1, =fib$f
 	str r1, [r0]
-	mov r10, r0
-	str r10, [fp, #-48]
+	mov r9, r0
+	str r9, [fp, #-48]
 	movw r0, #69
 	bl putch
 	movw r0, #110
@@ -67,8 +66,8 @@ main$L113:
 	movw r0, #58
 	bl putch
 	bl getint
-	mov r10, r0
-	str r10, [fp, #-44]
+	mov r9, r0
+	str r9, [fp, #-44]
 	movw r0, #0
 	ldr r9, [fp, #-44]
 	cmp r9, r0
@@ -80,9 +79,8 @@ main$L104:
 	bgt main$L105
 main$L106:
 main$L107:
-	ldr r9, [fp, #-40]
-	mov r10, r9
-	str r10, [fp, #-40]
+	mov r9, r4
+	str r9, [fp, #-40]
 main$L110:
 	ldr r9, [fp, #-40]
 	ldr r10, [fp, #-44]
@@ -109,8 +107,8 @@ main$L111:
 	bl putint
 	movw r0, #32
 	bl putch
-	mov r10, r4
-	str r10, [fp, #-40]
+	mov r9, r4
+	str r9, [fp, #-40]
 	b main$L110
 main$L105:
 	movw r1, #0
@@ -130,8 +128,8 @@ fib$f$L108:
 	push {r4-r10, fp, lr}
 	sub sp, sp, #8
 	add fp, sp, #40
-	mov r10, r1
-	str r10, [fp, #-40]
+	mov r9, r1
+	str r9, [fp, #-40]
 	movw r1, #0
 	ldr r9, [fp, #-40]
 	cmp r9, r1
@@ -150,8 +148,10 @@ fib$f$L106:
 	ldr r9, [fp, #-40]
 	sub r6, r9, #2
 	blx r2
-	ldr r2, [r4]
-	mov r4, r0
+	mov r1, r0
+	ldr r0, [r4]
+	mov r4, r1
+	mov r2, r0
 	mov r0, r5
 	mov r1, r6
 	blx r2

@@ -1,0 +1,16 @@
+# ninja log v5
+3	1174	1781147192130491920	lib/reg/CMakeFiles/reg.dir/ig.cc.o	cae60a49ab701c9f
+8	1517	1781149610577721292	lib/instr/CMakeFiles/instr.dir/predataflowpass.cc.o	3c75d9f5d719fcef
+1	1590	1781147192545920155	lib/instr/CMakeFiles/instr.dir/asmdataflow.cc.o	b2d64fa573d7e994
+3	1753	1781147192712091453	lib/util/CMakeFiles/util.dir/xml2asmprog.cc.o	a02f39fd63c3d95c
+18	1260	1781166906027151639	lib/reg/CMakeFiles/reg.dir/buildIg.cc.o	eb22f7aa21694884
+18	1138	1781166905908351636	lib/reg/CMakeFiles/reg.dir/simcoafrespisel.cc.o	3afa571c46acf27f
+4	1880	1781147192840496547	tools/main/CMakeFiles/main.dir/main.cc.o	391381e45d69552f
+2	2048	1781147193006667841	lib/reg/CMakeFiles/reg.dir/coloring.cc.o	c4c119b939f8e299
+4	2211	1781147193169062516	vendor/tinyxml2/CMakeFiles/vendor_xml.dir/tinyxml2.cc.o	eaff3ccf40d37c4b
+17	4374	1781166909133951609	lib/instr/CMakeFiles/instr.dir/asmprog2colored.cc.o	b4be9eed30dcc369
+2	5269	1781147196229079754	lib/instr/CMakeFiles/instr.dir/asmprog.cc.o	f6d638c2a294006a
+4374	5012	1781166909781951600	tools/main/main	461a82d39bd325da
+6	1832	1781182043033855055	lib/reg/CMakeFiles/reg.dir/simcoafrespisel.cc.o	3afa571c46acf27f
+6	5152	1781182046353415896	lib/instr/CMakeFiles/instr.dir/asmprog2colored.cc.o	b4be9eed30dcc369
+5152	5529	1781182046730004830	tools/main/main	461a82d39bd325da
